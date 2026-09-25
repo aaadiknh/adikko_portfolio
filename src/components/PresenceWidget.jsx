@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import {
   Music2,
   Code2,
@@ -9,16 +8,13 @@ import {
 
 export default function PresenceWidget() {
   const [activities, setActivities] = useState([]);
-
   useEffect(() => {
     const fetchPresence = async () => {
       try {
         const res = await fetch(
           "http://localhost:3001/api/presence"
         );
-
         const data = await res.json();
-
         const normalized = (data.activities || [])
           .slice(0, 2)
           .map((a, idx) => {
@@ -93,7 +89,6 @@ export default function PresenceWidget() {
           "shadow-[0_8px_25px_rgba(240,68,112,0.10)]",
         indicator: "bg-[#F04470]",
       },
-
       coding: {
         bg: "from-[#D62965]/15 to-[#F04470]/10",
         border: "border-[#D62965]/30",
@@ -104,7 +99,6 @@ export default function PresenceWidget() {
           "shadow-[0_8px_25px_rgba(214,41,101,0.10)]",
         indicator: "bg-[#D62965]",
       },
-
       gaming: {
         bg: "from-[#F04470]/15 to-[#D62965]/10",
         border: "border-[#F04470]/30",
@@ -115,7 +109,6 @@ export default function PresenceWidget() {
           "shadow-[0_8px_25px_rgba(240,68,112,0.10)]",
         indicator: "bg-[#F04470]",
       },
-
       default: {
         bg: "from-[#F58AA7]/10 to-[#F04470]/10",
         border: "border-[#F04470]/20",
@@ -127,7 +120,6 @@ export default function PresenceWidget() {
         indicator: "bg-[#F58AA7]",
       },
     };
-
     return colors[type] || colors.default;
   };
 
@@ -147,13 +139,11 @@ export default function PresenceWidget() {
       <div className="w-full space-y-2">
         {activities.map((act) => {
           const colors = getColors(act.type);
-
           return (
             <div
               key={act.key}
               className="group relative"
             >
-              {/* Glass Card */}
               <div
                 className={`
                   relative
@@ -172,7 +162,6 @@ export default function PresenceWidget() {
                   duration-300
                 `}
               >
-                {/* Subtle Pink Glow */}
                 <div
                   className="
                     absolute
@@ -190,10 +179,7 @@ export default function PresenceWidget() {
                     pointer-events-none
                   "
                 />
-
                 <div className="relative z-10 p-3 flex items-center gap-2.5">
-
-                  {/* Icon / Image */}
                   <div className="relative flex-shrink-0">
                     <div
                       className="
@@ -235,8 +221,6 @@ export default function PresenceWidget() {
                         </div>
                       )}
                     </div>
-
-                    {/* Music Bars - Spotify Only */}
                     {act.type === "spotify" && (
                       <div
                         className="
@@ -257,11 +241,7 @@ export default function PresenceWidget() {
                       </div>
                     )}
                   </div>
-
-                  {/* Text Info */}
                   <div className="flex-1 min-w-0">
-
-                    {/* Activity Badge */}
                     <div
                       className={`
                         inline-flex
@@ -285,7 +265,6 @@ export default function PresenceWidget() {
                           animate-pulse
                         `}
                       />
-
                       <span
                         className={`
                           text-[9px]
@@ -299,8 +278,6 @@ export default function PresenceWidget() {
                         {getActivityLabel(act.type)}
                       </span>
                     </div>
-
-                    {/* Title */}
                     <h3
                       className="
                         text-white
@@ -312,8 +289,6 @@ export default function PresenceWidget() {
                     >
                       {act.title}
                     </h3>
-
-                    {/* Subtitle */}
                     <p
                       className="
                         text-[#9b8790]
@@ -324,8 +299,6 @@ export default function PresenceWidget() {
                       {act.subtitle}
                     </p>
                   </div>
-
-                  {/* Spotify Icon */}
                   {act.type === "spotify" && (
                     <div>
                       <img
@@ -358,7 +331,6 @@ export default function PresenceWidget() {
             height: 90%;
           }
         }
-
         @keyframes music-2 {
           0%, 100% {
             height: 60%;
@@ -367,7 +339,6 @@ export default function PresenceWidget() {
             height: 100%;
           }
         }
-
         @keyframes music-3 {
           0%, 100% {
             height: 40%;
@@ -376,15 +347,12 @@ export default function PresenceWidget() {
             height: 85%;
           }
         }
-
         .animate-music-1 {
           animation: music-1 0.6s ease-in-out infinite;
         }
-
         .animate-music-2 {
           animation: music-2 0.6s ease-in-out 0.15s infinite;
         }
-
         .animate-music-3 {
           animation: music-3 0.6s ease-in-out 0.3s infinite;
         }

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import {
   Routes,
   Route,
@@ -8,13 +7,10 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom'
-
 import { supabase } from '../supabase'
-
 import Projects from './dashboard/Projects'
 import Certificates from './dashboard/Certificates'
 import Comments from './dashboard/Comments'
-
 import {
   FolderGit2,
   Award,
@@ -34,7 +30,6 @@ export default function Dashboard() {
   const location = useLocation()
   const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
   const handleLogout = async () => {
     await supabase.auth.signOut()
     navigate('/login')
@@ -42,53 +37,34 @@ export default function Dashboard() {
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full p-5 gap-6">
-
-      {/* Logo */}
       <div className="flex items-center gap-3 px-1 shrink-0">
         <div className="relative">
-
-          {/* Pink glow */}
           <div className="absolute -inset-1 bg-gradient-to-r from-[#F04470] to-[#D62965] rounded-xl blur opacity-40" />
-
-          {/* Icon container */}
           <div className="relative w-9 h-9 bg-[#120811] rounded-xl border border-[#F04470]/20 flex items-center justify-center">
             <LayoutDashboard className="w-4 h-4 text-[#F04470]" />
           </div>
-
         </div>
-
         <div>
           <p className="text-sm font-semibold text-white">
             Dashboard
           </p>
-
           <p className="text-xs text-[#9f8791]">
             Admin Panel
           </p>
         </div>
       </div>
-
-      {/* Badge */}
       <div className="shrink-0 px-3 py-2 rounded-full bg-[#F04470]/10 border border-[#F04470]/20 flex items-center gap-2">
-
         <span className="w-1.5 h-1.5 rounded-full bg-[#F04470] animate-pulse" />
-
         <span className="text-[#F58AA7] text-xs font-medium">
           Portfolio Manager
         </span>
-
       </div>
-
-      {/* Navigation */}
       <nav className="flex flex-col gap-1 flex-1 min-h-0">
-
         <p className="text-[10px] text-[#725b65] uppercase tracking-widest px-3 mb-2 shrink-0">
           Menu
         </p>
-
         {NAV_ITEMS.map(({ to, label, icon: Icon }) => {
           const active = location.pathname.includes(to)
-
           return (
             <Link
               key={to}
@@ -118,19 +94,14 @@ export default function Dashboard() {
                   }
                 `}
               />
-
               {label}
-
               {active && (
                 <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#F04470] shadow-[0_0_8px_rgba(240,68,112,0.7)]" />
               )}
             </Link>
           )
         })}
-
       </nav>
-
-      {/* Logout */}
       <button
         onClick={handleLogout}
         className="
@@ -150,26 +121,20 @@ export default function Dashboard() {
         <LogOut className="w-4 h-4 shrink-0" />
         Sign Out
       </button>
-
     </div>
   )
 
   return (
-    // Kunci: TIDAK pakai overflow-hidden di sini supaya scrollbar main bisa diklik
     <div
       className="flex text-white bg-[#080608]"
       style={{ height: '100dvh' }}
     >
-
-      {/* Mobile overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-20 bg-black/70 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
-
-      {/* Sidebar - desktop */}
       <aside
         className="
           hidden lg:flex
@@ -188,8 +153,6 @@ export default function Dashboard() {
       >
         <SidebarContent />
       </aside>
-
-      {/* Sidebar - mobile drawer */}
       <aside
         className={`
           fixed inset-y-0 left-0
@@ -210,11 +173,7 @@ export default function Dashboard() {
       >
         <SidebarContent />
       </aside>
-
-      {/* Main area */}
       <div className="flex-1 flex flex-col min-w-0 min-h-0">
-
-        {/* Mobile topbar */}
         <div
           className="
             lg:hidden
@@ -240,13 +199,10 @@ export default function Dashboard() {
           >
             <Menu className="w-4 h-4" />
           </button>
-
           <span className="text-sm font-medium text-white">
             Dashboard
           </span>
         </div>
-
-        {/* Hanya main yang overflow-y-auto — scrollbar bisa diklik normal */}
         <main
           className="
             flex-1
@@ -264,26 +220,21 @@ export default function Dashboard() {
               index
               element={<Navigate to="projects" replace />}
             />
-
             <Route
               path="projects"
               element={<Projects />}
             />
-
             <Route
               path="certificates"
               element={<Certificates />}
             />
-
             <Route
               path="comments"
               element={<Comments />}
             />
           </Routes>
         </main>
-
       </div>
-
     </div>
   )
 }

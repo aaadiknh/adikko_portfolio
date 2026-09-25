@@ -33,7 +33,6 @@ const InputField = ({
     <label className="text-xs text-indigo-300/70 uppercase tracking-wider font-medium">
       {label}
     </label>
-
     <input
       type={type}
       value={value}
@@ -167,7 +166,6 @@ const Modal = ({ title, onClose, children }) => (
     >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-2xl blur opacity-20 pointer-events-none" />
       <div className="relative bg-[#0a0a1a] border border-white/12 rounded-2xl flex flex-col overflow-hidden">
-        {/* Fixed header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-white/8 shrink-0">
           <h2 className="text-base font-semibold text-white">{title}</h2>
           <button
@@ -178,7 +176,6 @@ const Modal = ({ title, onClose, children }) => (
             <X className="w-5 h-5" />
           </button>
         </div>
-        {/* Scrollable content */}
         <div className="overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
@@ -206,9 +203,7 @@ const ProjectForm = ({
   });
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(initial?.Img || null);
-
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
   const handleFileChange = (e) => {
     const f = e.target.files[0];
     if (!f) return;
@@ -234,7 +229,6 @@ const ProjectForm = ({
             required
           />
         </div>
-
         <div className="sm:col-span-2 space-y-1.5">
           <label className="text-xs text-indigo-300/70 uppercase tracking-wider font-medium">
             Description
@@ -247,7 +241,6 @@ const ProjectForm = ({
             className="w-full bg-[#0d0d22] border border-white/10 rounded-xl px-4 py-2.5 text-gray-200 placeholder-gray-600 text-sm outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/20 transition-all resize-none"
           />
         </div>
-
         <InputField
           label="Tech Stack (comma separated)"
           value={form.TechStack}
@@ -272,7 +265,6 @@ const ProjectForm = ({
           onChange={set("Github")}
           placeholder="https://github.com/username/repo"
         />
-
         <div className="sm:col-span-2 space-y-1.5">
           <label className="text-xs text-indigo-300/70 uppercase tracking-wider font-medium">
             Project Image
@@ -306,7 +298,6 @@ const ProjectForm = ({
           </label>
         </div>
       </div>
-
       <div className="flex justify-end gap-2 pt-1">
         <button
           type="button"
@@ -339,11 +330,9 @@ export default function Projects() {
   const [showCreate, setShowCreate] = useState(false);
   const [editProject, setEditProject] = useState(null);
   const [uploading, setUploading] = useState(false);
-
   const fetchProjects = async () => {
   try {
     setLoading(true);
-
     const { data, error } = await supabase
         .from("projects")
         .select("*")
@@ -498,7 +487,6 @@ export default function Projects() {
             </p>
           </div>
         </div>
-
         <button
           onClick={() => setShowCreate(true)}
           className="relative group shrink-0"
@@ -510,8 +498,6 @@ export default function Projects() {
           </div>
         </button>
       </div>
-
-      {/* Create Modal */}
       {showCreate && (
         <Modal title="Add New Project" onClose={() => setShowCreate(false)}>
           <ProjectForm
@@ -522,8 +508,6 @@ export default function Projects() {
           />
         </Modal>
       )}
-
-      {/* Edit Modal */}
       {editProject && (
         <Modal title="Edit Project" onClose={() => setEditProject(null)}>
           <ProjectForm
@@ -535,8 +519,6 @@ export default function Projects() {
           />
         </Modal>
       )}
-
-      {/* Projects Grid */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (

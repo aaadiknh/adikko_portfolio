@@ -6,9 +6,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("Home");
-
     const location = useLocation();
-
     const navItems = [
         { id: "Home", label: "Home" },
         { id: "About", label: "About" },
@@ -16,24 +14,16 @@ const Navbar = () => {
         { id: "Contact", label: "Contact" },
     ];
 
-    /* =====================================================
-       SCROLL + ACTIVE SECTION
-    ===================================================== */
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
-
-            // Hanya cek section jika berada di halaman utama
             if (location.pathname !== "/") {
                 return;
             }
-
             const sections = navItems
                 .map((item) => {
                     const section = document.getElementById(item.id);
-
                     if (!section) return null;
-
                     return {
                         id: item.id,
                         top: section.offsetTop,
@@ -41,11 +31,8 @@ const Navbar = () => {
                     };
                 })
                 .filter(Boolean);
-
             const currentPosition = window.scrollY + 200;
-
             let currentSection = "Home";
-
             sections.forEach((section) => {
                 if (
                     currentPosition >= section.top &&
@@ -54,22 +41,15 @@ const Navbar = () => {
                     currentSection = section.id;
                 }
             });
-
             setActiveSection(currentSection);
         };
-
         window.addEventListener("scroll", handleScroll);
-
         handleScroll();
-
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [location.pathname]);
 
-    /* =====================================================
-       MOBILE MENU
-    ===================================================== */
     useEffect(() => {
         document.body.style.overflow = isOpen ? "hidden" : "unset";
 
@@ -78,87 +58,56 @@ const Navbar = () => {
         };
     }, [isOpen]);
 
-    /* =====================================================
-       HANDLE SECTION NAVIGATION
-    ===================================================== */
     const scrollToSection = (e, sectionId) => {
         e.preventDefault();
-
         setIsOpen(false);
 
-        // ================================================
-        // JIKA SEDANG DI HALAMAN UTAMA
-        // ================================================
         if (location.pathname === "/") {
             const section = document.getElementById(sectionId);
-
             console.log("Navigating to:", sectionId);
             console.log("Found section:", section);
-
             if (section) {
                 const navbarHeight = 80;
-
                 const sectionTop =
                     section.getBoundingClientRect().top +
                     window.scrollY -
                     navbarHeight;
-
                 window.scrollTo({
                     top: sectionTop,
                     behavior: "smooth",
                 });
-
-                // Update URL hash tanpa reload
                 window.history.replaceState(
                     null,
                     "",
                     `#${sectionId}`
                 );
-
                 setActiveSection(sectionId);
             }
-
             return;
         }
-
-        // ================================================
-        // JIKA SEDANG DI HALAMAN LAIN
-        // ================================================
         window.location.href = `/#${sectionId}`;
     };
 
-    /* =====================================================
-       HANDLE HASH AFTER RETURNING TO HOME
-    ===================================================== */
     useEffect(() => {
         if (location.pathname !== "/") return;
-
         const hash = window.location.hash;
-
         if (!hash) return;
-
         const sectionId = hash.replace("#", "");
-
         const timer = setTimeout(() => {
             const section = document.getElementById(sectionId);
-
             if (section) {
                 const navbarHeight = 80;
-
                 const sectionTop =
                     section.getBoundingClientRect().top +
                     window.scrollY -
                     navbarHeight;
-
                 window.scrollTo({
                     top: sectionTop,
                     behavior: "smooth",
                 });
-
                 setActiveSection(sectionId);
             }
         }, 300);
-
         return () => clearTimeout(timer);
     }, [location.pathname]);
 
@@ -174,10 +123,6 @@ const Navbar = () => {
         >
             <div className="mx-auto px-[5%] sm:px-[5%] lg:px-[10%]">
                 <div className="flex items-center justify-between h-16">
-
-                    {/* =====================================================
-                        LOGO
-                    ===================================================== */}
                     <div className="flex-shrink-0">
                         <a
                             href="#Home"
@@ -201,17 +146,11 @@ const Navbar = () => {
                             adikko
                         </a>
                     </div>
-
-                    {/* =====================================================
-                        DESKTOP NAVIGATION
-                    ===================================================== */}
                     <div className="hidden md:block">
                         <div className="ml-8 flex items-center space-x-8">
-
                             {navItems.map((item) => {
                                 const isActive =
                                     activeSection === item.id;
-
                                 return (
                                     <a
                                         key={item.id}
@@ -246,8 +185,6 @@ const Navbar = () => {
                                         >
                                             {item.label}
                                         </span>
-
-                                        {/* Active / Hover Indicator */}
                                         <span
                                             className={`
                                                 absolute
@@ -274,10 +211,6 @@ const Navbar = () => {
                             })}
                         </div>
                     </div>
-
-                    {/* =====================================================
-                        MOBILE MENU BUTTON
-                    ===================================================== */}
                     <div className="md:hidden">
                         <button
                             onClick={() =>
@@ -311,10 +244,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-
-            {/* =====================================================
-                MOBILE MENU
-            ===================================================== */}
             <div
                 className={`
                     md:hidden
@@ -346,7 +275,6 @@ const Navbar = () => {
                     {navItems.map((item, index) => {
                         const isActive =
                             activeSection === item.id;
-
                         return (
                             <a
                                 key={item.id}
@@ -387,7 +315,6 @@ const Navbar = () => {
                                     <span>
                                         {item.label}
                                     </span>
-
                                     {isActive && (
                                         <span
                                             className="

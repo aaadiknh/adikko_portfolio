@@ -9,26 +9,17 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-
 import { HelmetProvider } from "react-helmet-async";
 import { AnimatePresence } from "framer-motion";
-
 import "./index.css";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AnimatedBackground from "./components/Background";
-
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
-
 import ProtectedRoute from "./components/ProtectedRoute";
-
-/* =========================
-   LAZY IMPORTS
-========================= */
 
 const Portofolio = lazy(
   () => import("./Pages/Portofolio")
@@ -50,21 +41,12 @@ const NotFoundPage = lazy(
   () => import("./Pages/404")
 );
 
-/* =========================
-   LANDING PAGE
-========================= */
-
 const LandingPage = ({
   showWelcome,
   setShowWelcome,
 }) => {
   return (
     <div className="relative min-h-screen">
-
-      {/* =========================
-          WELCOME SCREEN
-      ========================= */}
-
       <AnimatePresence mode="wait">
         {showWelcome && (
           <Suspense fallback={null}>
@@ -76,11 +58,6 @@ const LandingPage = ({
           </Suspense>
         )}
       </AnimatePresence>
-
-      {/* =========================
-          MAIN WEBSITE
-      ========================= */}
-
       {!showWelcome && (
         <div
           className="
@@ -92,12 +69,9 @@ const LandingPage = ({
           "
         >
           <Navbar />
-
           <main className="flex-1">
             <Home />
-
             <About />
-
             <Suspense
               fallback={
                 <div className="h-20" />
@@ -107,7 +81,6 @@ const LandingPage = ({
               <ContactPage />
             </Suspense>
           </main>
-
           <Footer />
         </div>
       )}
@@ -115,14 +88,9 @@ const LandingPage = ({
   );
 };
 
-/* =========================
-   PROJECT PAGE LAYOUT
-========================= */
-
 const ProjectPageLayout = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
-
       <main className="relative z-10 flex-1 w-full">
         <Suspense
           fallback={
@@ -144,48 +112,21 @@ const ProjectPageLayout = () => {
           <ProjectDetails />
         </Suspense>
       </main>
-
-      {/* FOOTER PALING ATAS */}
       <div className="relative z-20 w-full">
         <Footer />
       </div>
-
     </div>
   );
 };
 
-/* =========================
-   APP
-========================= */
-
 function App() {
   const [showWelcome, setShowWelcome] =
     useState(true);
-
   return (
     <HelmetProvider>
-
-      {/* =========================
-          GLOBAL BACKGROUND
-          
-          Hanya satu background
-          untuk seluruh aplikasi
-      ========================= */}
-
       <AnimatedBackground />
-
-      {/* =========================
-          ROUTER
-      ========================= */}
-
       <BrowserRouter>
-
         <Routes>
-
-          {/* =========================
-              PUBLIC / HOME
-          ========================= */}
-
           <Route
             path="/"
             element={
@@ -195,31 +136,16 @@ function App() {
               />
             }
           />
-
-          {/* =========================
-              PROJECT DETAILS
-          ========================= */}
-
           <Route
             path="/project/:slug"
             element={
               <ProjectPageLayout />
             }
           />
-
-          {/* =========================
-              LOGIN
-          ========================= */}
-
           <Route
             path="/login"
             element={<Login />}
           />
-
-          {/* =========================
-              ADMIN
-          ========================= */}
-
           <Route
             path="/dashboard/*"
             element={
@@ -228,11 +154,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-          {/* =========================
-              404
-          ========================= */}
-
           <Route
             path="*"
             element={
@@ -241,9 +162,7 @@ function App() {
               </Suspense>
             }
           />
-
         </Routes>
-
       </BrowserRouter>
     </HelmetProvider>
   );

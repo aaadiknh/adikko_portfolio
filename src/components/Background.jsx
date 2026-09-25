@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 
 const AnimatedBackground = () => {
   const blobRefs = useRef([]);
-
   const initialPositions = [
     { x: -80, y: -80 },
     { x: 80, y: -40 },
@@ -12,32 +11,23 @@ const AnimatedBackground = () => {
 
   useEffect(() => {
     let requestId;
-
     const animate = () => {
       const scrollY = window.scrollY;
-
       blobRefs.current.forEach((blob, index) => {
         if (!blob) return;
-
         const initialPos = initialPositions[index];
-
         const xOffset =
           Math.sin(scrollY / 400 + index * 0.8) * 55;
-
         const yOffset =
           Math.cos(scrollY / 400 + index * 0.8) * 30;
-
         blob.style.transform = `translate(
           ${initialPos.x + xOffset}px,
           ${initialPos.y + yOffset}px
         )`;
       });
-
       requestId = requestAnimationFrame(animate);
     };
-
     animate();
-
     return () => {
       cancelAnimationFrame(requestId);
     };
@@ -45,10 +35,6 @@ const AnimatedBackground = () => {
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-      {/* =====================================================
-          GLOBAL BASE
-          Satu background untuk seluruh halaman
-      ====================================================== */}
       <div
         className="absolute inset-0"
         style={{
@@ -56,11 +42,6 @@ const AnimatedBackground = () => {
             "linear-gradient(135deg, #150b11 0%, #0d080c 48%, #090609 100%)",
         }}
       />
-
-      {/* =====================================================
-          LARGE PINK GLOW — TOP LEFT
-          Terinspirasi dari DeveloperIllustration Home
-      ====================================================== */}
       <div
         ref={(ref) => (blobRefs.current[0] = ref)}
         className="
@@ -74,10 +55,6 @@ const AnimatedBackground = () => {
           blur-[120px]
         "
       />
-
-      {/* =====================================================
-          MAGENTA GLOW — TOP RIGHT
-      ====================================================== */}
       <div
         ref={(ref) => (blobRefs.current[1] = ref)}
         className="
@@ -91,10 +68,6 @@ const AnimatedBackground = () => {
           blur-[125px]
         "
       />
-
-      {/* =====================================================
-          SOFT PINK GLOW — CENTER LEFT
-      ====================================================== */}
       <div
         ref={(ref) => (blobRefs.current[2] = ref)}
         className="
@@ -108,10 +81,6 @@ const AnimatedBackground = () => {
           blur-[135px]
         "
       />
-
-      {/* =====================================================
-          PINK / MAGENTA GLOW — CENTER RIGHT
-      ====================================================== */}
       <div
         ref={(ref) => (blobRefs.current[3] = ref)}
         className="
@@ -125,11 +94,6 @@ const AnimatedBackground = () => {
           blur-[145px]
         "
       />
-
-      {/* =====================================================
-          HOME-STYLE CENTRAL ATMOSPHERE
-          Efek lingkaran besar yang lembut
-      ====================================================== */}
       <div
         className="
           absolute
@@ -143,10 +107,6 @@ const AnimatedBackground = () => {
           blur-[110px]
         "
       />
-
-      {/* =====================================================
-          MAGENTA CENTER DEPTH
-      ====================================================== */}
       <div
         className="
           absolute
@@ -159,11 +119,6 @@ const AnimatedBackground = () => {
           blur-[120px]
         "
       />
-
-      {/* =====================================================
-          LOWER PINK ATMOSPHERE
-          Menyambungkan Contact → Footer
-      ====================================================== */}
       <div
         className="
           absolute
@@ -176,10 +131,6 @@ const AnimatedBackground = () => {
           blur-[150px]
         "
       />
-
-      {/* =====================================================
-          LOWER RIGHT SOFT PINK
-      ====================================================== */}
       <div
         className="
           absolute
@@ -192,10 +143,6 @@ const AnimatedBackground = () => {
           blur-[145px]
         "
       />
-
-      {/* =====================================================
-          SUBTLE RADIAL LIGHT
-      ====================================================== */}
       <div
         className="absolute inset-0"
         style={{
@@ -203,10 +150,6 @@ const AnimatedBackground = () => {
             "radial-gradient(circle at 50% 20%, rgba(240,68,112,0.06), transparent 42%)",
         }}
       />
-
-      {/* =====================================================
-          HOME-STYLE SOFT HIGHLIGHT
-      ====================================================== */}
       <div
         className="
           absolute
@@ -219,10 +162,6 @@ const AnimatedBackground = () => {
           blur-[90px]
         "
       />
-
-      {/* =====================================================
-          SUBTLE GRID / PARTICLE TEXTURE
-      ====================================================== */}
       <div
         className="absolute inset-0"
         style={{
@@ -232,11 +171,6 @@ const AnimatedBackground = () => {
           opacity: 0.018,
         }}
       />
-
-      {/* =====================================================
-          FINAL SOFT OVERLAY
-          Menjaga background tetap nyaman dibaca
-      ====================================================== */}
       <div
         className="absolute inset-0"
         style={{

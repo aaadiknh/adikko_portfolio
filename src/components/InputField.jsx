@@ -9,7 +9,6 @@ const InputField = ({
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  // Helper function to generate input classes dynamically
   const getInputClasses = (isTextArea = false) => {
     const baseClasses = `
       w-full
@@ -18,20 +17,16 @@ const InputField = ({
       bg-white/[0.035]
       text-white
       placeholder-transparent
-
       border
       border-white/[0.10]
-
       focus:outline-none
       focus:ring-2
       focus:ring-[#F04470]/20
       focus:ring-offset-0
-
       transition-all
       duration-300
       peer
     `;
-
     const hoverFocusClasses = isFocused
       ? `
           shadow-[0_4px_20px_rgba(240,68,112,0.18)]
@@ -55,7 +50,6 @@ const InputField = ({
     `;
   };
 
-  // Render input or textarea based on the field type
   const renderInputContent = () => {
     if (field === "message") {
       return (
@@ -91,8 +85,6 @@ const InputField = ({
 
   return (
     <div className="relative w-full group">
-
-      {/* Icon and Label */}
       <div
         className="
           absolute
@@ -121,7 +113,6 @@ const InputField = ({
             }
           `}
         />
-
         <label
           htmlFor={field}
           className={`
@@ -130,34 +121,25 @@ const InputField = ({
             top-1/2
             transform
             -translate-y-1/2
-
             text-[#9b8790]
             text-sm
-
             transition-all
             duration-300
-
             peer-placeholder-shown:top-1/2
             peer-placeholder-shown:translate-y-0
             peer-placeholder-shown:text-[#806c75]
             peer-placeholder-shown:text-base
-
             peer-focus:top-2
             peer-focus:translate-y-0
             peer-focus:text-[#F04470]
             peer-focus:text-sm
-
             whitespace-nowrap
           `}
         >
           {label}
         </label>
       </div>
-
-      {/* Input or Textarea */}
       {renderInputContent()}
-
-      {/* Focus / Hover Border Effect */}
       <div
         className={`
           absolute
@@ -165,10 +147,8 @@ const InputField = ({
           border
           rounded-xl
           pointer-events-none
-
           transition-all
           duration-300
-
           ${
             isFocused
               ? "border-[#F04470]/50 shadow-[0_0_18px_rgba(240,68,112,0.08)]"
@@ -176,7 +156,6 @@ const InputField = ({
           }
         `}
       />
-
     </div>
   );
 };

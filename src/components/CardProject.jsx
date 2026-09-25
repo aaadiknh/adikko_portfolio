@@ -28,7 +28,6 @@ const CardProject = ({
 
   return (
     <div className="group relative w-full">
-      {/* Card */}
       <div
         className="
           relative
@@ -50,7 +49,6 @@ const CardProject = ({
           group-hover:-translate-y-1
         "
       >
-        {/* Soft Glass Highlight */}
         <div
           className="
             absolute
@@ -66,8 +64,6 @@ const CardProject = ({
             pointer-events-none
           "
         />
-
-        {/* Subtle Decorative Highlight */}
         <div
           className="
             absolute
@@ -85,8 +81,6 @@ const CardProject = ({
             pointer-events-none
           "
         />
-
-        {/* Bottom Highlight */}
         <div
           className="
             absolute
@@ -104,10 +98,7 @@ const CardProject = ({
             pointer-events-none
           "
         />
-
-        {/* Content */}
         <div className="relative p-5 z-10">
-          {/* Project Image */}
           <div
             className="
               relative
@@ -133,8 +124,6 @@ const CardProject = ({
                 duration-700
               "
             />
-
-            {/* Image Overlay */}
             <div
               className="
                 absolute
@@ -151,10 +140,7 @@ const CardProject = ({
               "
             />
           </div>
-
-          {/* Project Information */}
           <div className="mt-5 space-y-3">
-            {/* Title */}
             <h3
               className="
                 text-xl
@@ -166,8 +152,6 @@ const CardProject = ({
             >
               {Title}
             </h3>
-
-            {/* Description */}
             <p
               className="
                 text-[#f3e7eb]/75
@@ -178,10 +162,7 @@ const CardProject = ({
             >
               {Description}
             </p>
-
-            {/* Actions */}
             <div className="pt-4 flex items-center justify-between gap-3">
-              {/* Live Demo */}
               {ProjectLink ? (
                 <a
                   href={ProjectLink || "#"}
@@ -202,7 +183,6 @@ const CardProject = ({
                   <span className="text-sm font-medium">
                     Live Demo
                   </span>
-
                   <ExternalLink
                     className="
                       w-4
@@ -219,8 +199,6 @@ const CardProject = ({
                   Demo Not Available
                 </span>
               )}
-
-              {/* Details */}
               {id ? (
                 <Link
                   to={`/project/${toSlug(Title)}`}
@@ -254,7 +232,6 @@ const CardProject = ({
                   <span className="text-sm font-medium">
                     Details
                   </span>
-
                   <ArrowRight
                     className="
                       w-4
@@ -273,8 +250,6 @@ const CardProject = ({
             </div>
           </div>
         </div>
-
-        {/* Subtle Glass Border */}
         <div
           className="
             absolute

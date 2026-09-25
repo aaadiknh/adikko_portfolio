@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from "react";
-
 import {
   MessageCircle,
   UserCircle2,
@@ -10,10 +9,8 @@ import {
   X,
   Pin,
 } from "lucide-react";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import { supabase } from "../supabase";
 
 const Comment = memo(
@@ -38,7 +35,6 @@ const Comment = memo(
           </span>
         </div>
       )}
-
       <div className="flex items-start gap-3">
         {comment.profile_image ? (
           <img
@@ -69,7 +65,6 @@ const Comment = memo(
             <UserCircle2 className="w-5 h-5" />
           </div>
         )}
-
         <div className="flex-grow min-w-0">
           <div className="flex items-center justify-between gap-4 mb-2">
             <div className="flex items-center gap-2">
@@ -81,19 +76,16 @@ const Comment = memo(
               >
                 {comment.user_name}
               </h4>
-
               {isPinned && (
                 <span className="px-2 py-0.5 text-xs bg-[#F04470]/15 text-[#F58AA7] rounded-full border border-[#F04470]/20">
                   Admin
                 </span>
               )}
             </div>
-
             <span className="text-xs text-[#88737d] whitespace-nowrap">
               {formatDate(comment.created_at)}
             </span>
           </div>
-
           <p className="text-[#c1b1b8] text-sm break-words leading-relaxed relative bottom-2">
             {comment.content}
           </p>
@@ -108,45 +100,33 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
   const [userName, setUserName] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
 
   const handleImageChange = useCallback((e) => {
     const file = e.target.files[0];
-
     if (file) {
-      // Check file size (5MB limit)
       if (file.size > 5 * 1024 * 1024) {
         alert(
           "File size must be less than 5MB. Please choose a smaller image."
         );
-
         if (e.target) e.target.value = "";
         return;
       }
-
-      // Check file type
       if (!file.type.startsWith("image/")) {
         alert("Please select a valid image file.");
-
         if (e.target) e.target.value = "";
         return;
       }
-
       setImageFile(file);
-
       const reader = new FileReader();
-
       reader.onloadend = () => setImagePreview(reader.result);
-
       reader.readAsDataURL(file);
     }
   }, []);
 
   const handleTextareaChange = useCallback((e) => {
     setNewComment(e.target.value);
-
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -156,25 +136,20 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
   const handleSubmit = useCallback(
     async (e) => {
       e.preventDefault();
-
       if (!newComment.trim() || !userName.trim()) return;
-
       const success = await onSubmit({
         newComment: newComment.trim(),
         userName: userName.trim(),
         imageFile,
       });
-
       if (success) {
         setNewComment("");
         setUserName("");
         setImagePreview(null);
         setImageFile(null);
-
         if (fileInputRef.current) {
           fileInputRef.current.value = "";
         }
-
         if (textareaRef.current) {
           textareaRef.current.style.height = "auto";
         }
@@ -185,7 +160,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Name */}
       <div
         className="space-y-2"
         data-aos="fade-up"
@@ -194,7 +168,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
         <label className="block text-sm font-medium text-white">
           Name <span className="text-[#F04470]">*</span>
         </label>
-
         <input
           type="text"
           value={userName}
@@ -217,8 +190,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
           required
         />
       </div>
-
-      {/* Message */}
       <div
         className="space-y-2"
         data-aos="fade-up"
@@ -227,7 +198,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
         <label className="block text-sm font-medium text-white">
           Message <span className="text-[#F04470]">*</span>
         </label>
-
         <textarea
           ref={textareaRef}
           value={newComment}
@@ -252,8 +222,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
           required
         />
       </div>
-
-      {/* Profile Photo */}
       <div
         className="space-y-2"
         data-aos="fade-up"
@@ -263,7 +231,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
           Profile Photo{" "}
           <span className="text-[#88737d]">(optional)</span>
         </label>
-
         <div className="flex items-center gap-4 p-4 bg-white/[0.03] border border-white/10 rounded-xl">
           {imagePreview ? (
             <div className="flex items-center gap-4">
@@ -276,13 +243,11 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                   shadow-[0_0_20px_rgba(240,68,112,0.2)]
                 "
               />
-
               <button
                 type="button"
                 onClick={() => {
                   setImagePreview(null);
                   setImageFile(null);
-
                   if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                   }
@@ -312,7 +277,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                 accept="image/*"
                 className="hidden"
               />
-
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
@@ -332,7 +296,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
                 <ImagePlus className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 <span>Choose Profile Photo</span>
               </button>
-
               <p className="text-center text-[#88737d] text-sm mt-2">
                 Max file size: 5MB
               </p>
@@ -340,8 +303,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
           )}
         </div>
       </div>
-
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isSubmitting}
@@ -365,7 +326,6 @@ const CommentForm = memo(({ onSubmit, isSubmitting, error }) => {
         "
       >
         <div className="absolute inset-0 bg-white/20 translate-y-12 group-hover:translate-y-0 transition-transform duration-300" />
-
         <div className="relative flex items-center justify-center gap-2">
           {isSubmitting ? (
             <>
@@ -391,14 +351,12 @@ const Komentar = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    // Initialize AOS
     AOS.init({
       once: false,
       duration: 1000,
     });
   }, []);
 
-  // Fetch pinned comment
   useEffect(() => {
     const fetchPinnedComment = async () => {
       try {
@@ -407,12 +365,10 @@ const Komentar = () => {
           .select("*")
           .eq("is_pinned", true)
           .single();
-
         if (error && error.code !== "PGRST116") {
           console.error("Error fetching pinned comment:", error);
           return;
         }
-
         if (data) {
           setPinnedComment(data);
         }
@@ -420,11 +376,9 @@ const Komentar = () => {
         console.error("Error fetching pinned comment:", error);
       }
     };
-
     fetchPinnedComment();
   }, []);
 
-  // Fetch regular comments and set up real-time subscription
   useEffect(() => {
     const fetchComments = async () => {
       const { data, error } = await supabase
@@ -432,18 +386,14 @@ const Komentar = () => {
         .select("*")
         .eq("is_pinned", false)
         .order("created_at", { ascending: false });
-
       if (error) {
         console.error("Error fetching comments:", error);
         return;
       }
-
       setComments(data || []);
     };
-
     fetchComments();
 
-    // Set up real-time subscription
     const subscription = supabase
       .channel("portfolio_comments")
       .on(
@@ -459,7 +409,6 @@ const Komentar = () => {
         }
       )
       .subscribe();
-
     return () => {
       subscription.unsubscribe();
     };
@@ -467,33 +416,27 @@ const Komentar = () => {
 
   const uploadImage = useCallback(async (imageFile) => {
     if (!imageFile) return null;
-
     const allowedTypes = [
       "image/png",
       "image/jpeg",
       "image/jpg",
       "image/webp",
     ];
-
     if (!allowedTypes.includes(imageFile.type)) {
       throw new Error(
         "Format gambar harus PNG, JPG, JPEG, atau WEBP."
       );
     }
-
     if (imageFile.size > 5 * 1024 * 1024) {
       throw new Error("Ukuran gambar maksimal 5 MB.");
     }
-
     const extension = imageFile.name
       .split(".")
       .pop()
       .toLowerCase();
-
     const fileName = `profile-${Date.now()}-${Math.random()
       .toString(36)
       .substring(2, 8)}.${extension}`;
-
     const { data: uploadData, error: uploadError } =
       await supabase.storage
         .from("profile-images")
@@ -502,33 +445,25 @@ const Komentar = () => {
           upsert: false,
           contentType: imageFile.type,
         });
-
     if (uploadError) {
       console.error(
         "PROFILE IMAGE UPLOAD ERROR:",
         uploadError
       );
-
       throw uploadError;
     }
-
     console.log(
       "PROFILE IMAGE UPLOAD SUCCESS:",
       uploadData
     );
-
     const { data: publicUrlData } = supabase.storage
       .from("profile-images")
       .getPublicUrl(fileName);
-
     const publicUrl = publicUrlData?.publicUrl;
-
     if (!publicUrl) {
       throw new Error("URL profile image gagal dibuat.");
     }
-
     console.log("PROFILE IMAGE URL:", publicUrl);
-
     return publicUrl;
   }, []);
 
@@ -536,14 +471,11 @@ const Komentar = () => {
     async ({ newComment, userName, imageFile }) => {
       setError("");
       setIsSubmitting(true);
-
       try {
         let profileImageUrl = null;
-
         if (imageFile) {
           profileImageUrl = await uploadImage(imageFile);
         }
-
         const { data, error } = await supabase
           .from("portfolio_comments")
           .insert([
@@ -556,27 +488,21 @@ const Komentar = () => {
           ])
           .select()
           .single();
-
         if (error) {
           console.error("COMMENT INSERT ERROR:", error);
           throw error;
         }
-
         console.log("COMMENT SUCCESS:", data);
-
         if (data) {
           setComments((prev) => [data, ...prev]);
         }
-
         return true;
       } catch (error) {
         console.error("Error adding comment:", error);
-
         setError(
           error?.message ||
             "Failed to post comment. Please try again."
         );
-
         return false;
       } finally {
         setIsSubmitting(false);
@@ -587,30 +513,23 @@ const Komentar = () => {
 
   const formatDate = useCallback((timestamp) => {
     if (!timestamp) return "";
-
     const date = new Date(timestamp);
     const now = new Date();
-
     const diffMinutes = Math.floor(
       (now - date) / (1000 * 60)
     );
-
     const diffHours = Math.floor(diffMinutes / 60);
     const diffDays = Math.floor(diffHours / 24);
-
     if (diffMinutes < 1) return "Just now";
     if (diffMinutes < 60) return `${diffMinutes}m ago`;
     if (diffHours < 24) return `${diffHours}h ago`;
     if (diffDays < 7) return `${diffDays}d ago`;
-
     return new Intl.DateTimeFormat("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
     }).format(date);
   }, []);
-
-  // Calculate total comments
   const totalComments =
     comments.length + (pinnedComment ? 1 : 0);
 
@@ -632,13 +551,10 @@ const Komentar = () => {
       data-aos="fade-up"
       data-aos-duration="1000"
     >
-      {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#F04470]/[0.07] rounded-full blur-[100px]" />
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#D62965]/[0.06] rounded-full blur-[100px]" />
       </div>
-
-      {/* Header */}
       <div
         className="
           relative z-10
@@ -660,7 +576,6 @@ const Komentar = () => {
           >
             <MessageCircle className="w-6 h-6 text-[#Ffffff]" />
           </div>
-
           <h3 className="text-xl font-semibold text-white">
             Comments{" "}
             <span className="text-[#FF4D8D]">
@@ -669,10 +584,7 @@ const Komentar = () => {
           </h3>
         </div>
       </div>
-
-      {/* Content */}
       <div className="relative z-10 p-6 space-y-6">
-        {/* Error */}
         {error && (
           <div
             className="
@@ -686,12 +598,9 @@ const Komentar = () => {
             data-aos="fade-in"
           >
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
-
             <p className="text-sm">{error}</p>
           </div>
         )}
-
-        {/* Comment Form */}
         <div>
           <CommentForm
             onSubmit={handleCommentSubmit}
@@ -699,8 +608,6 @@ const Komentar = () => {
             error={error}
           />
         </div>
-
-        {/* Comments List */}
         <div
           className="
             space-y-4
@@ -714,7 +621,6 @@ const Komentar = () => {
           data-aos="fade-up"
           data-aos-delay="200"
         >
-          {/* Pinned Comment */}
           {pinnedComment && (
             <div
               data-aos="fade-down"
@@ -728,15 +634,12 @@ const Komentar = () => {
               />
             </div>
           )}
-
-          {/* Regular Comments */}
           {comments.length === 0 && !pinnedComment ? (
             <div
               className="text-center py-8"
               data-aos="fade-in"
             >
               <UserCircle2 className="w-12 h-12 text-[#F04470] mx-auto mb-3 opacity-50" />
-
               <p className="text-[#88737d]">
                 No comments yet. Start the conversation!
               </p>
@@ -757,22 +660,18 @@ const Komentar = () => {
         </div>
       </div>
 
-      {/* Custom Scrollbar */}
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }
-
         .custom-scrollbar::-webkit-scrollbar-track {
           background: rgba(255, 255, 255, 0.04);
           border-radius: 6px;
         }
-
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: rgba(240, 68, 112, 0.45);
           border-radius: 6px;
         }
-
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(214, 41, 101, 0.75);
         }

@@ -18,10 +18,6 @@ import {
 import Swal from "sweetalert2";
 import { toSlug } from "../utils/slug";
 
-/* =========================================
-   TECH ICONS
-========================================= */
-
 const TECH_ICONS = {
   React: Globe,
   Tailwind: Layout,
@@ -33,10 +29,6 @@ const TECH_ICONS = {
   CSS: Code,
   default: Package,
 };
-
-/* =========================================
-   TECH BADGE
-========================================= */
 
 const TechBadge = ({ tech }) => {
   const Icon = TECH_ICONS[tech] || TECH_ICONS["default"];
@@ -63,7 +55,6 @@ const TechBadge = ({ tech }) => {
         cursor-default
       "
     >
-      {/* Hover Background */}
       <div
         className="
           absolute
@@ -77,7 +68,6 @@ const TechBadge = ({ tech }) => {
           duration-500
         "
       />
-
       <div className="relative flex items-center gap-1.5 md:gap-2">
         <Icon
           className="
@@ -90,7 +80,6 @@ const TechBadge = ({ tech }) => {
             transition-colors
           "
         />
-
         <span
           className="
             text-xs
@@ -107,10 +96,6 @@ const TechBadge = ({ tech }) => {
     </div>
   );
 };
-
-/* =========================================
-   FEATURE ITEM
-========================================= */
 
 const FeatureItem = ({ feature }) => {
   return (
@@ -147,7 +132,6 @@ const FeatureItem = ({ feature }) => {
             duration-300
           "
         />
-
         <div
           className="
             relative
@@ -165,7 +149,6 @@ const FeatureItem = ({ feature }) => {
           "
         />
       </div>
-
       <span
         className="
           text-sm
@@ -180,10 +163,6 @@ const FeatureItem = ({ feature }) => {
     </li>
   );
 };
-
-/* =========================================
-   PROJECT STATS
-========================================= */
 
 const ProjectStats = ({ project }) => {
   const techStackCount = project?.TechStack?.length || 0;
@@ -206,7 +185,6 @@ const ProjectStats = ({ project }) => {
         border-[#F04470]/10
       "
     >
-      {/* Background */}
       <div
         className="
           absolute
@@ -219,8 +197,6 @@ const ProjectStats = ({ project }) => {
           z-0
         "
       />
-
-      {/* Total Technology */}
       <div
         className="
           relative
@@ -261,7 +237,6 @@ const ProjectStats = ({ project }) => {
             strokeWidth={1.5}
           />
         </div>
-
         <div className="flex-grow">
           <div
             className="
@@ -273,14 +248,11 @@ const ProjectStats = ({ project }) => {
           >
             {techStackCount}
           </div>
-
           <div className="text-[10px] md:text-xs text-[#88737d]">
             Total Teknologi
           </div>
         </div>
       </div>
-
-      {/* Total Features */}
       <div
         className="
           relative
@@ -321,7 +293,6 @@ const ProjectStats = ({ project }) => {
             strokeWidth={1.5}
           />
         </div>
-
         <div className="flex-grow">
           <div
             className="
@@ -343,10 +314,6 @@ const ProjectStats = ({ project }) => {
   );
 };
 
-/* =========================================
-   GITHUB CLICK HANDLER
-========================================= */
-
 const handleGithubClick = (githubLink) => {
   if (!githubLink || githubLink === "Private") {
     Swal.fire({
@@ -358,91 +325,50 @@ const handleGithubClick = (githubLink) => {
       background: "#120811",
       color: "#ffffff",
     });
-
     return false;
   }
 
   return true;
 };
 
-/* =========================================
-   PROJECT DETAILS
-========================================= */
-
 const ProjectDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-
   const [project, setProject] = useState(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  /* =========================================
-     GET PROJECT DATA
-  ========================================= */
-
   useEffect(() => {
     window.scrollTo(0, 0);
-
     const storedProjects =
       JSON.parse(localStorage.getItem("projects")) || [];
-
-    /* 
-       Cari project berdasarkan slug
-       yang dibuat dari Title
-    */
     const selectedProject = storedProjects.find(
       (p) => toSlug(p.Title) === slug
     );
-
     if (selectedProject) {
       const enhancedProject = {
         ...selectedProject,
-
         Features: selectedProject.Features || [],
-
         TechStack: selectedProject.TechStack || [],
-
         Github:
           selectedProject.Github || "Private",
-
         Link:
           selectedProject.Link || "",
       };
-
       setProject(enhancedProject);
     }
   }, [slug]);
 
-  /* =========================================
-     LIVE DEMO HANDLER
-  ========================================= */
-
   const handleLiveDemo = () => {
-    /*
-      Jika project tidak memiliki Link
-      maka arahkan ke halaman 404.
-    */
-
     if (!project?.Link || project.Link.trim() === "") {
       navigate("/404");
       return;
     }
-
-    /*
-      Jika Link tersedia,
-      buka di tab baru.
-    */
-
     window.open(
       project.Link,
       "_blank",
       "noopener,noreferrer"
     );
   };
-
-  /* =========================================
-     PROJECT NOT FOUND
-  ========================================= */
 
   if (!project) {
     return (
@@ -471,7 +397,6 @@ const ProjectDetails = () => {
               shadow-[0_0_25px_rgba(240,68,112,0.15)]
             "
           />
-
           <h2 className="text-xl md:text-3xl font-bold text-white">
             Loading Project...
           </h2>
@@ -480,25 +405,16 @@ const ProjectDetails = () => {
     );
   }
 
-  /* =========================================
-     PROJECT URL
-  ========================================= */
-
   const projectUrl = `https://adikko.com/project/${toSlug(
     project.Title
   )}`;
 
   return (
     <>
-      {/* =====================================
-          SEO
-      ===================================== */}
-
       <Helmet>
         <title>
           {project.Title} — Adik Nur Halimah
         </title>
-
         <meta
           name="description"
           content={
@@ -507,44 +423,36 @@ const ProjectDetails = () => {
               : `Project ${project.Title} oleh Adik Nur Halimah — Software Developer | Frontend Web Developer.`
           }
         />
-
         <meta
           name="robots"
           content="index, follow"
         />
-
         <link
           rel="canonical"
           href={projectUrl}
         />
-
         <meta
           property="og:title"
           content={`${project.Title} — Adik Nur Halimah`}
         />
-
         <meta
           property="og:description"
           content={project.Description?.slice(0, 155)}
         />
-
         <meta
           property="og:url"
           content={projectUrl}
         />
-
         <meta
           property="og:type"
           content="website"
         />
-
         {project.Img && (
           <meta
             property="og:image"
             content={project.Img}
           />
         )}
-
         <script type="application/ld+json">
           {`
             {
@@ -565,11 +473,6 @@ const ProjectDetails = () => {
           `}
         </script>
       </Helmet>
-
-      {/* =====================================
-          MAIN CONTAINER
-      ===================================== */}
-
       <div
         className="
           min-h-screen
@@ -580,14 +483,8 @@ const ProjectDetails = () => {
           overflow-hidden
         "
       >
-        {/* ===================================
-            BACKGROUND
-        =================================== */}
-
         <div className="fixed inset-0 pointer-events-none">
           <div className="absolute -inset-[10px] opacity-30">
-
-            {/* Pink Blob */}
             <div
               className="
                 absolute
@@ -606,8 +503,6 @@ const ProjectDetails = () => {
                 animate-blob
               "
             />
-
-            {/* Magenta Blob */}
             <div
               className="
                 absolute
@@ -627,8 +522,6 @@ const ProjectDetails = () => {
                 animation-delay-2000
               "
             />
-
-            {/* Soft Pink Blob */}
             <div
               className="
                 absolute
@@ -649,7 +542,6 @@ const ProjectDetails = () => {
               "
             />
           </div>
-
           <div
             className="
               absolute
@@ -658,8 +550,6 @@ const ProjectDetails = () => {
               opacity-[0.02]
             "
           />
-
-          {/* Dark Overlay */}
           <div
             className="
               absolute
@@ -671,11 +561,6 @@ const ProjectDetails = () => {
             "
           />
         </div>
-
-        {/* ===================================
-            CONTENT
-        =================================== */}
-
         <div className="relative">
           <div
             className="
@@ -687,10 +572,6 @@ const ProjectDetails = () => {
               md:py-16
             "
           >
-            {/* =================================
-                BREADCRUMB / BACK
-            ================================= */}
-
             <div
               className="
                 flex
@@ -739,10 +620,8 @@ const ProjectDetails = () => {
                     transition-transform
                   "
                 />
-
                 <span>Back</span>
               </button>
-
               <div
                 className="
                   flex
@@ -755,27 +634,15 @@ const ProjectDetails = () => {
                 "
               >
                 <span>Projects</span>
-
                 <ChevronRight
                   className="w-3 h-3 md:w-4 md:h-4"
                 />
-
                 <span className="text-white/90 truncate">
                   {project.Title}
                 </span>
               </div>
             </div>
-
-            {/* =================================
-                MAIN GRID
-            ================================= */}
-
             <div className="grid lg:grid-cols-2 gap-8 md:gap-16">
-
-              {/* =================================
-                  LEFT COLUMN
-              ================================= */}
-
               <div
                 className="
                   space-y-6
@@ -783,7 +650,6 @@ const ProjectDetails = () => {
                   animate-slideInLeft
                 "
               >
-                {/* TITLE */}
                 <div className="space-y-4 md:space-y-6">
                   <h1
                     className="
@@ -801,7 +667,6 @@ const ProjectDetails = () => {
                   >
                     {project.Title}
                   </h1>
-
                   <div className="relative h-1 w-16 md:w-24">
                     <div
                       className="
@@ -814,7 +679,6 @@ const ProjectDetails = () => {
                         animate-pulse
                       "
                     />
-
                     <div
                       className="
                         absolute
@@ -828,8 +692,6 @@ const ProjectDetails = () => {
                     />
                   </div>
                 </div>
-
-                {/* DESCRIPTION */}
                 <div className="prose prose-invert max-w-none">
                   <p
                     className="
@@ -842,17 +704,8 @@ const ProjectDetails = () => {
                     {project.Description}
                   </p>
                 </div>
-
-                {/* PROJECT STATS */}
                 <ProjectStats project={project} />
-
-                {/* =================================
-                    ACTION BUTTONS
-                ================================= */}
-
                 <div className="flex flex-wrap gap-3 md:gap-4">
-
-                  {/* LIVE DEMO */}
                   <button
                     type="button"
                     onClick={handleLiveDemo}
@@ -885,7 +738,6 @@ const ProjectDetails = () => {
                       md:text-base
                     "
                   >
-                    {/* Hover Effect */}
                     <div
                       className="
                         absolute
@@ -899,7 +751,6 @@ const ProjectDetails = () => {
                         group-hover:translate-y-[0%]
                       "
                     />
-
                     <ExternalLink
                       className="
                         relative
@@ -911,15 +762,12 @@ const ProjectDetails = () => {
                         transition-transform
                       "
                     />
-
                     <span className="relative font-medium">
                       {project.Link
                         ? "Live Demo"
                         : "Demo Not Available"}
                     </span>
                   </button>
-
-                  {/* GITHUB */}
                   <a
                     href={
                       project.Github &&
@@ -962,7 +810,6 @@ const ProjectDetails = () => {
                       e.preventDefault()
                     }
                   >
-                    {/* Hover Effect */}
                     <div
                       className="
                         absolute
@@ -976,7 +823,6 @@ const ProjectDetails = () => {
                         group-hover:translate-y-[0%]
                       "
                     />
-
                     <Github
                       className="
                         relative
@@ -988,17 +834,11 @@ const ProjectDetails = () => {
                         transition-transform
                       "
                     />
-
                     <span className="relative font-medium">
                       Github
                     </span>
                   </a>
                 </div>
-
-                {/* =================================
-                    TECHNOLOGIES
-                ================================= */}
-
                 <div className="space-y-4 md:space-y-6">
                   <h3
                     className="
@@ -1023,10 +863,8 @@ const ProjectDetails = () => {
                         text-[#F04470]
                       "
                     />
-
                     Technologies Used
                   </h3>
-
                   {project.TechStack.length > 0 ? (
                     <div className="flex flex-wrap gap-2 md:gap-3">
                       {project.TechStack.map(
@@ -1052,11 +890,6 @@ const ProjectDetails = () => {
                   )}
                 </div>
               </div>
-
-              {/* =================================
-                  RIGHT COLUMN
-              ================================= */}
-
               <div
                 className="
                   space-y-6
@@ -1064,7 +897,6 @@ const ProjectDetails = () => {
                   animate-slideInRight
                 "
               >
-                {/* PROJECT IMAGE */}
                 <div
                   className="
                     relative
@@ -1092,7 +924,6 @@ const ProjectDetails = () => {
                       z-10
                     "
                   />
-
                   <img
                     src={project.Img}
                     alt={project.Title}
@@ -1114,8 +945,6 @@ const ProjectDetails = () => {
                       setIsImageLoaded(true)
                     }
                   />
-
-                  {/* Image Border */}
                   <div
                     className="
                       absolute
@@ -1130,11 +959,6 @@ const ProjectDetails = () => {
                     "
                   />
                 </div>
-
-                {/* =================================
-                    KEY FEATURES
-                ================================= */}
-
                 <div
                   className="
                     bg-white/[0.02]
@@ -1170,10 +994,8 @@ const ProjectDetails = () => {
                         duration-300
                       "
                     />
-
                     Key Features
                   </h3>
-
                   {project.Features.length > 0 ? (
                     <ul className="list-none space-y-2">
                       {project.Features.map(
@@ -1195,82 +1017,62 @@ const ProjectDetails = () => {
             </div>
           </div>
         </div>
-
-        {/* =====================================
-            ANIMATIONS
-        ===================================== */}
-
         <style jsx>{`
           @keyframes blob {
             0% {
               transform: translate(0px, 0px) scale(1);
             }
-
             33% {
               transform: translate(30px, -50px) scale(1.1);
             }
-
             66% {
               transform: translate(-20px, 20px) scale(0.9);
             }
-
             100% {
               transform: translate(0px, 0px) scale(1);
             }
           }
-
           .animate-blob {
             animation: blob 10s infinite;
           }
-
           .animation-delay-2000 {
             animation-delay: 2s;
           }
-
           .animation-delay-4000 {
             animation-delay: 4s;
           }
-
           .animate-fadeIn {
             animation: fadeIn 0.7s ease-out;
           }
-
           .animate-slideInLeft {
             animation: slideInLeft 0.7s ease-out;
           }
-
           .animate-slideInRight {
             animation: slideInRight 0.7s ease-out;
           }
-
           @keyframes fadeIn {
             from {
               opacity: 0;
             }
-
             to {
               opacity: 1;
             }
           }
-
           @keyframes slideInLeft {
             from {
               opacity: 0;
               transform: translateX(-30px);
             }
-
             to {
               opacity: 1;
               transform: translateX(0);
             }
           }
-
           @keyframes slideInRight {
             from {
               opacity: 0;
               transform: translateX(30px);
             }
-
             to {
               opacity: 1;
               transform: translateX(0);

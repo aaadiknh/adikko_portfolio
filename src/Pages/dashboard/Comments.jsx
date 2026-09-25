@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 
 const PAGE_SIZE = 10;
-
 const Card = ({ children, className = "" }) => (
   <div className={`relative group ${className}`}>
     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-500 pointer-events-none" />
@@ -29,7 +28,6 @@ export default function Comments() {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-
   const fetchComments = async () => {
     setLoading(true);
     const { data } = await supabase
@@ -44,8 +42,6 @@ export default function Comments() {
   useEffect(() => {
     fetchComments();
   }, []);
-
-  // Reset page when filter/search changes
   useEffect(() => {
     setPage(1);
   }, [filter, search]);
@@ -65,7 +61,6 @@ export default function Comments() {
   };
 
   const pinnedCount = comments.filter((c) => c.is_pinned).length;
-
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     return new Date(dateStr).toLocaleDateString("en-US", {
@@ -75,7 +70,6 @@ export default function Comments() {
     });
   };
 
-  // Filter + search
   const filtered = useMemo(() => {
     let result =
       filter === "pinned" ? comments.filter((c) => c.is_pinned) : comments;
@@ -90,13 +84,11 @@ export default function Comments() {
     return result;
   }, [comments, filter, search]);
 
-  // Pagination
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-start sm:items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -114,8 +106,6 @@ export default function Comments() {
             </p>
           </div>
         </div>
-
-        {/* Filter tabs */}
         <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/10">
           {[
             { value: "all", label: "All", count: comments.length },
@@ -144,8 +134,6 @@ export default function Comments() {
           ))}
         </div>
       </div>
-
-      {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
         {[
           { label: "Total", value: comments.length, color: "text-indigo-400" },
@@ -166,8 +154,6 @@ export default function Comments() {
           </Card>
         ))}
       </div>
-
-      {/* Search bar */}
       <div className="relative">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
         <input
@@ -186,16 +172,12 @@ export default function Comments() {
           </button>
         )}
       </div>
-
-      {/* Result count when searching */}
       {search && (
         <p className="text-xs text-gray-500 -mt-3">
           {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "
           {search}"
         </p>
       )}
-
-      {/* Comments List */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
           <div className="w-7 h-7 border-2 border-white/10 border-t-indigo-500 rounded-full animate-spin" />
@@ -228,7 +210,6 @@ export default function Comments() {
                 }`}
               >
                 <div className="flex items-start gap-3 sm:gap-4">
-                  {/* Avatar */}
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center shrink-0">
                     <img
                       src={comment.profile_image || "/default-avatar.jpg"}
@@ -236,11 +217,9 @@ export default function Comments() {
                       className="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover"
                     />
                   </div>
-
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <span className="text-sm font-semibold text-white">
-                        {/* Highlight search match in name */}
                         {highlightMatch(
                           comment.user_name || "Anonymous",
                           search,
@@ -257,12 +236,9 @@ export default function Comments() {
                       </span>
                     </div>
                     <p className="text-gray-300 text-sm leading-relaxed">
-                      {/* Highlight search match in content */}
                       {highlightMatch(comment.content || "", search)}
                     </p>
                   </div>
-
-                  {/* Action buttons */}
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
                       onClick={() => pin(comment.id, !comment.is_pinned)}
@@ -292,8 +268,6 @@ export default function Comments() {
           ))}
         </div>
       )}
-
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between gap-3 pt-2">
           <p className="text-xs text-gray-500">
@@ -308,8 +282,6 @@ export default function Comments() {
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-
-            {/* Page numbers */}
             {Array.from({ length: totalPages }, (_, i) => i + 1)
               .filter(
                 (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1,
@@ -341,7 +313,6 @@ export default function Comments() {
                   </button>
                 ),
               )}
-
             <button
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
@@ -356,7 +327,6 @@ export default function Comments() {
   );
 }
 
-// Highlight matching text
 function highlightMatch(text, query) {
   if (!query.trim()) return text;
   const regex = new RegExp(

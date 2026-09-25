@@ -22,7 +22,6 @@ const SkeletonCard = () => (
 
 const CertCard = ({ cert, onDelete }) => {
   const [imgLoaded, setImgLoaded] = useState(false)
-
   return (
     <div className="relative group">
       <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-2xl blur opacity-10 group-hover:opacity-30 transition duration-500" />
@@ -99,18 +98,15 @@ export default function Certificates() {
         return
       }
       console.log('UPLOAD BERHASIL:', uploadData)
-      
       const { data: publicUrlData } = supabase.storage
         .from('certificate-images')
         .getPublicUrl(fileName)
-
       const imageUrl = publicUrlData?.publicUrl
       console.log('PUBLIC URL:', imageUrl)
       if (!imageUrl) {
         alert('URL gambar tidak ditemukan')
         return
       }
-
       const { data: insertedData, error: insertError } = await supabase
         .from('certificates')
         .insert({
@@ -162,13 +158,11 @@ export default function Certificates() {
         </div>
       </div>
 
-      {/* Upload Card */}
       <Card>
         <div className="p-5 sm:p-6 space-y-4">
           <h2 className="text-sm font-semibold text-white flex items-center gap-2">
             <Plus className="w-4 h-4 text-indigo-400" /> Upload Certificate
           </h2>
-
           <label
             onDragOver={e => { e.preventDefault(); setDragOver(true) }}
             onDragLeave={() => setDragOver(false)}
@@ -190,7 +184,6 @@ export default function Certificates() {
             )}
             <input type="file" accept="image/*" onChange={e => handleFile(e.target.files[0])} className="hidden" />
           </label>
-
           {file && (
             <div className="flex items-center justify-between gap-3 flex-wrap">
               <p className="text-xs text-gray-400 truncate flex-1">{file.name}</p>
@@ -211,8 +204,6 @@ export default function Certificates() {
           )}
         </div>
       </Card>
-
-      {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
           {Array.from({ length: 8 }).map((_, i) => (

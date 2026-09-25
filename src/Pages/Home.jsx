@@ -1,7 +1,5 @@
 import React, { useState, useEffect, memo } from "react";
-
 import { Helmet } from "react-helmet-async";
-
 import {
   Github,
   Linkedin,
@@ -15,24 +13,15 @@ import {
   Terminal,
   Smartphone,
 } from "lucide-react";
-
 import { motion } from "framer-motion";
-
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-/* =========================
-   CONSTANTS
-========================= */
 
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-
 const WORDS = ["Software Developer", "Technology Enthusiast"];
-
 const TECH_STACK = ["React", "JavaScript", "Node.js", "Tailwind"];
-
 const SOCIAL_LINKS = [
   {
     icon: Github,
@@ -51,18 +40,9 @@ const SOCIAL_LINKS = [
   },
 ];
 
-/* =========================
-   DEVELOPER ILLUSTRATION
-========================= */
-
 const DeveloperIllustration = memo(({ isHovering }) => {
   return (
     <div className="relative w-full aspect-square max-w-[600px] mx-auto overflow-visible">
-      {/* =========================
-          BACKGROUND PINK ATMOSPHERE
-      ========================= */}
-
-      {/* Main soft pink glow */}
       <motion.div
         animate={{
           scale: isHovering ? [1, 1.08, 1] : [1, 1.04, 1],
@@ -81,7 +61,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           blur-[90px]
         "
       />
-
       <motion.div
         animate={{
           rotate: [0, 360],
@@ -102,11 +81,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           border-[#F04470]/10
         "
       />
-
-      {/* =========================
-          GEAR TOP
-      ========================= */}
-
       <motion.div
         animate={{
           rotate: [0, 360],
@@ -145,11 +119,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           strokeWidth={1.5}
         />
       </motion.div>
-
-      {/* =========================
-          SMALL TERMINAL
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, -8, 0],
@@ -204,23 +173,14 @@ const DeveloperIllustration = memo(({ isHovering }) => {
               <span className="text-[#F04470] text-[10px]">
                 &gt;
               </span>
-
               <div className="h-1.5 w-12 rounded-full bg-[#F58AA7]/60" />
             </div>
-
             <div className="h-1.5 w-20 rounded-full bg-[#F04470]/50" />
-
             <div className="h-1.5 w-14 rounded-full bg-[#D62965]/60" />
-
             <div className="h-1.5 w-16 rounded-full bg-[#F58AA7]/40" />
           </div>
         </div>
       </motion.div>
-
-      {/* =========================
-          MAIN MONITOR
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, -8, 0],
@@ -238,7 +198,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           z-20
         "
       >
-        {/* Monitor frame */}
         <div
           className="
             relative
@@ -262,7 +221,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
               border-[#F58AA7]/20
             "
           >
-            {/* Monitor top bar */}
             <div
               className="
                 h-7
@@ -281,7 +239,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
                 <span className="w-2 h-2 rounded-full bg-[#F04470]" />
                 <span className="w-2 h-2 rounded-full bg-[#F58AA7]" />
               </div>
-
               <div className="flex items-center gap-1.5">
                 <Terminal className="w-3 h-3 text-[#F58AA7]" />
                 <span className="text-[8px] text-[#a9929b]">
@@ -289,74 +246,51 @@ const DeveloperIllustration = memo(({ isHovering }) => {
                 </span>
               </div>
             </div>
-
-            {/* Code editor */}
             <div className="relative p-4 sm:p-6 min-h-[180px] sm:min-h-[230px]">
-              {/* Decorative code lines */}
-
               <div className="space-y-3">
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     01
                   </span>
-
                   <div className="w-12 h-2 rounded-full bg-[#F58AA7]/80" />
-
                   <div className="w-20 h-2 rounded-full bg-[#F04470]/50" />
                 </div>
-
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     02
                   </span>
-
                   <div className="w-20 h-2 rounded-full bg-[#F04470]/70" />
-
                   <div className="w-28 h-2 rounded-full bg-[#F58AA7]/40" />
                 </div>
-
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     03
                   </span>
-
                   <div className="w-10 h-2 rounded-full bg-[#F58AA7]/70" />
-
                   <div className="w-36 h-2 rounded-full bg-[#F04470]/60" />
                 </div>
-
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     04
                   </span>
-
                   <div className="w-24 h-2 rounded-full bg-[#F04470]/50" />
-
                   <div className="w-16 h-2 rounded-full bg-[#D62965]/60" />
                 </div>
-
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     05
                   </span>
-
                   <div className="w-14 h-2 rounded-full bg-[#F58AA7]/60" />
-
                   <div className="w-32 h-2 rounded-full bg-[#F04470]/45" />
                 </div>
-
                 <div className="flex gap-3 items-center">
                   <span className="text-[#D62965] text-xs">
                     06
                   </span>
-
                   <div className="w-8 h-2 rounded-full bg-[#F04470]/80" />
-
                   <div className="w-24 h-2 rounded-full bg-[#F58AA7]/40" />
                 </div>
               </div>
-
-              {/* Animated cursor */}
               <motion.div
                 animate={{
                   opacity: [0, 1, 0],
@@ -378,8 +312,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
             </div>
           </div>
         </div>
-
-        {/* Monitor stand */}
         <div className="flex flex-col items-center">
           <div
             className="
@@ -392,7 +324,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
               clip-path-[polygon(25%_0,75%_0,100%_100%,0_100%)]
             "
           />
-
           <div
             className="
               w-32
@@ -408,11 +339,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           />
         </div>
       </motion.div>
-
-      {/* =========================
-          CODE ICON LEFT
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, 10, 0],
@@ -460,11 +386,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           />
         </div>
       </motion.div>
-
-      {/* =========================
-          SETTINGS LEFT
-      ========================= */}
-
       <motion.div
         animate={{
           rotate: [0, 360],
@@ -509,11 +430,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           />
         </div>
       </motion.div>
-
-      {/* =========================
-          CLOUD DOWNLOAD
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, -10, 0],
@@ -555,17 +471,11 @@ const DeveloperIllustration = memo(({ isHovering }) => {
             className="w-10 h-10 sm:w-12 sm:h-12 text-white"
             strokeWidth={1.5}
           />
-
           <span className="text-[9px] sm:text-[10px] text-white/70 tracking-wider">
             DEPLOY
           </span>
         </div>
       </motion.div>
-
-      {/* =========================
-          RIGHT GEAR
-      ========================= */}
-
       <motion.div
         animate={{
           rotate: [360, 0],
@@ -593,11 +503,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           strokeWidth={1.5}
         />
       </motion.div>
-
-      {/* =========================
-          PHONE
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, -10, 0],
@@ -645,10 +550,7 @@ const DeveloperIllustration = memo(({ isHovering }) => {
               gap-4
             "
           >
-            {/* Speaker */}
             <div className="w-8 h-1 rounded-full bg-[#F58AA7]/30" />
-
-            {/* Check */}
             <motion.div
               animate={{
                 scale: [1, 1.08, 1],
@@ -677,7 +579,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
                 strokeWidth={1.7}
               />
             </motion.div>
-
             <div className="space-y-1">
               <div className="w-12 h-1 rounded-full bg-[#F58AA7]/40" />
               <div className="w-8 h-1 mx-auto rounded-full bg-[#F04470]/50" />
@@ -685,11 +586,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           </div>
         </div>
       </motion.div>
-
-      {/* =========================
-          SMALL FLOATING CODE
-      ========================= */}
-
       <motion.div
         animate={{
           y: [0, -12, 0],
@@ -730,11 +626,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
           />
         </div>
       </motion.div>
-
-      {/* =========================
-          SMALL PARTICLES
-      ========================= */}
-
       {[
         {
           top: "10%",
@@ -793,11 +684,6 @@ const DeveloperIllustration = memo(({ isHovering }) => {
   );
 });
 
-
-/* =========================
-   MAIN TITLE
-========================= */
-
 const MainTitle = memo(() => (
   <div
     className="space-y-2"
@@ -819,7 +705,6 @@ const MainTitle = memo(() => (
     >
       <span className="relative inline-block">
         <span className="absolute -inset-3 bg-gradient-to-r from-[#F04470] to-[#D62965] blur-3xl opacity-15" />
-
         <span
           className="
             relative
@@ -834,12 +719,9 @@ const MainTitle = memo(() => (
           Software
         </span>
       </span>
-
       <br />
-
       <span className="relative inline-block mt-1 sm:mt-2">
         <span className="absolute -inset-3 bg-gradient-to-r from-[#F04470] to-[#D62965] blur-3xl opacity-20" />
-
         <span
           className="
             relative
@@ -857,10 +739,6 @@ const MainTitle = memo(() => (
     </h1>
   </div>
 ));
-
-/* =========================
-   TECH STACK
-========================= */
 
 const TechStack = memo(({ tech }) => (
   <div
@@ -890,16 +768,11 @@ const TechStack = memo(({ tech }) => (
     "
   >
     <span className="absolute inset-0 bg-gradient-to-r from-[#F04470]/10 to-[#D62965]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
     <span className="relative z-10">
       {tech}
     </span>
   </div>
 ));
-
-/* =========================
-   CTA BUTTON
-========================= */
 
 const CTAButton = memo(({ href, text, icon: Icon }) => (
   <a
@@ -929,7 +802,6 @@ const CTAButton = memo(({ href, text, icon: Icon }) => (
         duration-700
       "
     />
-
     <div
       className="
         relative
@@ -961,7 +833,6 @@ const CTAButton = memo(({ href, text, icon: Icon }) => (
           to-[#D62965]/20
         "
       />
-
       <span
         className="
           absolute
@@ -987,7 +858,6 @@ const CTAButton = memo(({ href, text, icon: Icon }) => (
         >
           {text}
         </span>
-
         <Icon
           className={`
             w-4 h-4
@@ -1007,10 +877,6 @@ const CTAButton = memo(({ href, text, icon: Icon }) => (
     </div>
   </a>
 ));
-
-/* =========================
-   SOCIAL LINK
-========================= */
 
 const SocialLink = memo(({ icon: Icon, link, label }) => (
   <a
@@ -1035,7 +901,6 @@ const SocialLink = memo(({ icon: Icon, link, label }) => (
         duration-300
       "
     />
-
     <div
       className="
         relative
@@ -1073,10 +938,6 @@ const SocialLink = memo(({ icon: Icon, link, label }) => (
   </a>
 ));
 
-/* =========================
-   HOME
-========================= */
-
 const Home = () => {
   const [text, setText] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -1084,10 +945,6 @@ const Home = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-
-  /* =========================
-     AOS INITIALIZATION
-  ========================= */
 
   useEffect(() => {
     AOS.init({
@@ -1100,50 +957,33 @@ const Home = () => {
     const handleResize = () => {
       AOS.refresh();
     };
-
     let resizeTimer;
-
     const handleResizeDebounced = () => {
       clearTimeout(resizeTimer);
-
       resizeTimer = setTimeout(() => {
         handleResize();
       }, 150);
     };
-
     window.addEventListener("resize", handleResizeDebounced);
-
     return () => {
       window.removeEventListener(
         "resize",
         handleResizeDebounced
       );
-
       clearTimeout(resizeTimer);
     };
   }, []);
-
-  /* =========================
-     PAGE LOAD
-  ========================= */
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoaded(true);
     }, 100);
-
     return () => clearTimeout(timer);
   }, []);
 
-  /* =========================
-     TYPING EFFECT
-  ========================= */
-
   useEffect(() => {
     const currentWord = WORDS[wordIndex];
-
     let timeout;
-
     if (isTyping) {
       if (charIndex < currentWord.length) {
         timeout = setTimeout(() => {
@@ -1166,54 +1006,41 @@ const Home = () => {
         setIsTyping(true);
       }
     }
-
     return () => clearTimeout(timeout);
   }, [charIndex, isTyping, wordIndex]);
 
   return (
     <>
-      {/* =========================
-          SEO
-      ========================= */}
-
       <Helmet>
         <title>Adik Nur Halimah — Software Developer</title>
-
         <meta
           name="description"
           content="Website Adik Nur Halimah, Software Developer | Front-End Web Developer. Saya berfokus pada penciptaan pengalaman digital yang menarik dan selalu berupaya memberikan solusi terbaik dalam setiap proyek yang saya kerjakan."
         />
-
         <meta
           name="robots"
           content="index, follow"
         />
-
         <link
           rel="canonical"
           href="https://adikko.com"
         />
-
         <meta
           property="og:title"
           content="Adik Nur Halimah — Software Developer | Front-End Web Developer"
         />
-
         <meta
           property="og:description"
           content="Website dan portofolio Adik Nur Halimah, Software Developer | Front-End Web Developer."
         />
-
         <meta
           property="og:url"
           content="https://adikko.com"
         />
-
         <meta
           property="og:type"
           content="website"
         />
-
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -1230,11 +1057,6 @@ const Home = () => {
           })}
         </script>
       </Helmet>
-
-      {/* =========================
-          HERO SECTION
-      ========================= */}
-
       <section
         id="Home"
         className="
@@ -1250,7 +1072,6 @@ const Home = () => {
           xl:px-[10%]
         "
       >
-        {/* Main container */}
         <div
           className={`
             relative
@@ -1290,10 +1111,6 @@ const Home = () => {
                 xl:gap-16
               "
             >
-              {/* =========================
-                  LEFT COLUMN
-              ========================= */}
-
               <div
                 className="
                   w-full
@@ -1315,10 +1132,7 @@ const Home = () => {
                     max-w-2xl
                   "
                 >
-
                   <MainTitle />
-
-                  {/* Typing */}
                   <div
                     className="
                       min-h-[32px]
@@ -1344,7 +1158,6 @@ const Home = () => {
                     >
                       {text}
                     </span>
-
                     <span
                       className="
                         w-[2px]
@@ -1361,8 +1174,6 @@ const Home = () => {
                       "
                     />
                   </div>
-
-                  {/* Description */}
                   <p
                     className="
                       text-sm
@@ -1380,8 +1191,6 @@ const Home = () => {
                     digital yang fungsional, efisien,
                     dan user-friendly.
                   </p>
-
-                  {/* Tech Stack */}
                   <div
                     className="
                       flex
@@ -1400,8 +1209,6 @@ const Home = () => {
                       />
                     ))}
                   </div>
-
-                  {/* CTA */}
                   <div
                     className="
                       flex
@@ -1419,15 +1226,12 @@ const Home = () => {
                       text="Projects"
                       icon={ExternalLink}
                     />
-
                     <CTAButton
                       href="#Contact"
                       text="Contact"
                       icon={Mail}
                     />
                   </div>
-
-                  {/* Social Links */}
                   <div
                     className="
                       flex
@@ -1449,12 +1253,6 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
-              {/* =========================
-                  RIGHT COLUMN
-                  MOTION ILLUSTRATION
-              ========================= */}
-
               <div
                 className="
                   w-full

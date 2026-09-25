@@ -1,22 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
-
 import { supabase } from "../supabase";
-
 import CardProject from "../components/CardProject";
-
 import TechStackIcon from "../components/TechStackIcon";
-
 import AOS from "aos";
-
 import "aos/dist/aos.css";
-
 import Certificate from "../components/Certificate";
-
 import { Code, Award, Boxes } from "lucide-react";
-
-/* =========================
-   TOGGLE BUTTON
-========================= */
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
@@ -49,7 +38,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
   >
     <span className="relative z-10 flex items-center gap-2">
       {isShowingMore ? "See Less" : "See More"}
-
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -79,7 +67,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
         />
       </svg>
     </span>
-
     <span
       className="
         absolute
@@ -98,10 +85,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
     />
   </button>
 );
-
-/* =========================
-   TECH STACK
-========================= */
 
 const techStacks = [
   {
@@ -154,10 +137,6 @@ const techStacks = [
   },
 ];
 
-/* =========================
-   TAB DATA
-========================= */
-
 const tabs = [
   {
     label: "Projects",
@@ -173,21 +152,12 @@ const tabs = [
   },
 ];
 
-/* =========================
-   MAIN COMPONENT
-========================= */
-
 export default function FullWidthTabs() {
   const [value, setValue] = useState(0);
   const [projects, setProjects] = useState([]);
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
-
-  /* =========================
-     RESPONSIVE ITEM COUNT
-  ========================= */
-
   const [initialItems, setInitialItems] = useState(
     typeof window !== "undefined" && window.innerWidth < 768
       ? 4
@@ -198,17 +168,11 @@ export default function FullWidthTabs() {
     const handleResize = () => {
       setInitialItems(window.innerWidth < 768 ? 4 : 6);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  /* =========================
-     AOS INITIALIZATION
-  ========================= */
 
   useEffect(() => {
     AOS.init({
@@ -216,10 +180,6 @@ export default function FullWidthTabs() {
       duration: 1000,
     });
   }, []);
-
-  /* =========================
-     FETCH DATA SUPABASE
-  ========================= */
 
   const fetchData = useCallback(async () => {
     try {
@@ -229,45 +189,30 @@ export default function FullWidthTabs() {
             .from("projects")
             .select("*")
             .order("id", { ascending: false }),
-
           supabase
             .from("certificates")
             .select("*")
             .order("id", { ascending: false }),
         ]);
-
       if (projectsResponse.error) {
         throw projectsResponse.error;
       }
-
       if (certificatesResponse.error) {
         throw certificatesResponse.error;
       }
 
       const projectData = projectsResponse.data || [];
       const certificateData = certificatesResponse.data || [];
-
       setProjects(projectData);
       setCertificates(certificateData);
-
-      /* =========================
-         SAVE TO LOCAL STORAGE
-      ========================= */
-
       localStorage.setItem(
         "projects",
         JSON.stringify(projectData)
       );
-
       localStorage.setItem(
         "certificates",
         JSON.stringify(certificateData)
       );
-
-      /* =========================
-         NOTIFY OTHER COMPONENTS
-      ========================= */
-
       window.dispatchEvent(
         new Event("portfolioDataUpdated")
       );
@@ -279,21 +224,11 @@ export default function FullWidthTabs() {
     }
   }, []);
 
-  /* =========================
-     LOAD DATA
-  ========================= */
-
   useEffect(() => {
     const cachedProjects =
       localStorage.getItem("projects");
-
     const cachedCertificates =
       localStorage.getItem("certificates");
-
-    /* =========================
-       LOAD CACHED PROJECTS
-    ========================= */
-
     if (cachedProjects) {
       try {
         setProjects(JSON.parse(cachedProjects));
@@ -304,11 +239,6 @@ export default function FullWidthTabs() {
         );
       }
     }
-
-    /* =========================
-       LOAD CACHED CERTIFICATES
-    ========================= */
-
     if (cachedCertificates) {
       try {
         setCertificates(
@@ -321,29 +251,15 @@ export default function FullWidthTabs() {
         );
       }
     }
-
-    /* =========================
-       FETCH LATEST DATA
-    ========================= */
-
     fetchData();
   }, [fetchData]);
 
-  /* =========================
-     TAB CHANGE
-  ========================= */
-
   const handleChange = (newValue) => {
     setValue(newValue);
-
     setTimeout(() => {
       AOS.refresh();
     }, 100);
   };
-
-  /* =========================
-     SHOW MORE / LESS
-  ========================= */
 
   const toggleShowMore = useCallback((type) => {
     if (type === "projects") {
@@ -351,27 +267,17 @@ export default function FullWidthTabs() {
     } else {
       setShowAllCertificates((prev) => !prev);
     }
-
     setTimeout(() => {
       AOS.refresh();
     }, 100);
   }, []);
 
-  /* =========================
-     DISPLAY DATA
-  ========================= */
-
   const displayedProjects = showAllProjects
     ? projects
     : projects.slice(0, initialItems);
-
   const displayedCertificates = showAllCertificates
     ? certificates
     : certificates.slice(0, initialItems);
-
-  /* =========================
-     RENDER
-  ========================= */
 
   return (
     <div
@@ -387,10 +293,6 @@ export default function FullWidthTabs() {
         isolate
       "
     >
-      {/* =========================
-          HEADER
-      ========================= */}
-
       <div
         className="
           text-center
@@ -418,7 +320,6 @@ export default function FullWidthTabs() {
         >
           Portfolio Showcase
         </h2>
-
         <p
           className="
             text-[#a9929b]
@@ -436,11 +337,6 @@ export default function FullWidthTabs() {
           continuous learning path.
         </p>
       </div>
-
-      {/* =========================
-          TAB NAVIGATION
-      ========================= */}
-
       <div
         className="
           w-full
@@ -470,7 +366,6 @@ export default function FullWidthTabs() {
           {tabs.map((tab, index) => {
             const Icon = tab.icon;
             const isActive = value === index;
-
             return (
               <button
                 key={tab.label}
@@ -502,7 +397,6 @@ export default function FullWidthTabs() {
                   duration-300
                   ease-in-out
                   border
-
                   ${
                     isActive
                       ? `
@@ -525,15 +419,12 @@ export default function FullWidthTabs() {
                   }
                 `}
               >
-                {/* TAB ICON */}
-
                 <Icon
                   className={`
                     w-5
                     h-5
                     transition-all
                     duration-300
-
                     ${
                       isActive
                         ? "text-[#F04470] scale-110 drop-shadow-[0_0_8px_rgba(240,68,112,0.5)]"
@@ -541,13 +432,7 @@ export default function FullWidthTabs() {
                     }
                   `}
                 />
-
-                {/* TAB LABEL */}
-
                 <span>{tab.label}</span>
-
-                {/* ACTIVE INDICATOR */}
-
                 {isActive && (
                   <span
                     className="
@@ -571,11 +456,6 @@ export default function FullWidthTabs() {
           })}
         </div>
       </div>
-
-      {/* =========================
-          TAB CONTENT
-      ========================= */}
-
       <div
         className="
           w-full
@@ -585,10 +465,6 @@ export default function FullWidthTabs() {
           z-10
         "
       >
-        {/* =========================
-            PROJECTS
-        ========================= */}
-
         {value === 0 && (
           <div
             role="tabpanel"
@@ -647,9 +523,6 @@ export default function FullWidthTabs() {
                 )}
               </div>
             </div>
-
-            {/* SEE MORE PROJECTS */}
-
             {projects.length > initialItems && (
               <div className="mt-6 w-full flex justify-start">
                 <ToggleButton
@@ -662,11 +535,6 @@ export default function FullWidthTabs() {
             )}
           </div>
         )}
-
-        {/* =========================
-            CERTIFICATES
-        ========================= */}
-
         {value === 1 && (
           <div
             role="tabpanel"
@@ -720,9 +588,6 @@ export default function FullWidthTabs() {
                 )}
               </div>
             </div>
-
-            {/* SEE MORE CERTIFICATES */}
-
             {certificates.length > initialItems && (
               <div className="mt-6 w-full flex justify-start">
                 <ToggleButton
@@ -737,11 +602,6 @@ export default function FullWidthTabs() {
             )}
           </div>
         )}
-
-        {/* =========================
-            TECH STACK
-        ========================= */}
-
         {value === 2 && (
           <div
             role="tabpanel"

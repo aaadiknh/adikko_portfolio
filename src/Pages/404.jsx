@@ -5,22 +5,17 @@ export default function NotFoundPage() {
   const handleGoBack = () => {
     window.history.back();
   };
-
   const handleGoHome = () => {
-    // In a real app, you would use your router's navigation
     window.location.href = "/";
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#090609] via-[#120811] to-[#1a0b12] flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#F04470]/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#D62965]/10 rounded-full blur-[140px]" />
       </div>
-
       <div className="text-center relative z-10">
-        {/* 404 Number */}
         <div className="mb-8">
           <h1
             className="
@@ -33,7 +28,6 @@ export default function NotFoundPage() {
           >
             404
           </h1>
-
           <div
             className="
               w-24 h-1 mx-auto rounded-full
@@ -42,20 +36,15 @@ export default function NotFoundPage() {
             "
           />
         </div>
-
-        {/* Message */}
         <div className="mb-8">
           <h2 className="text-3xl font-semibold text-[#f3dce4] mb-4">
             Oops! Halaman Tidak Ditemukan
           </h2>
-
           <p className="text-lg text-[#a9929b] max-w-md mx-auto leading-relaxed">
             Halaman yang Anda cari mungkin telah dipindahkan, dihapus, atau
             tidak pernah ada.
           </p>
         </div>
-
-        {/* Illustration */}
         <div className="mb-8">
           <div
             className="
@@ -79,8 +68,6 @@ export default function NotFoundPage() {
             </div>
           </div>
         </div>
-
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
             onClick={handleGoBack}
@@ -102,7 +89,6 @@ export default function NotFoundPage() {
             <ArrowLeft size={20} />
             Kembali
           </button>
-
           <button
             onClick={handleGoHome}
             className="

@@ -9,16 +9,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
-
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoading(true)
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) { alert(error.message); setLoading(false); return }
-
     const { data: profile } = await supabase
       .from('profiles').select('role').eq('id', data.user.id).single()
-
     if (profile?.role !== 'admin') {
       alert('Access denied')
       await supabase.auth.signOut()
@@ -34,8 +31,6 @@ export default function Login() {
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-700" />
           <div className="relative bg-white/5 backdrop-blur-xl border border-white/15 rounded-2xl p-8 space-y-7">
-
-            {/* Header */}
             <div className="text-center space-y-3">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/25">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
@@ -44,8 +39,6 @@ export default function Login() {
               <h1 className="text-3xl font-bold text-white">Welcome Back</h1>
               <p className="text-gray-400 text-sm">Sign in to manage your portfolio</p>
             </div>
-
-            {/* Form */}
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs text-gray-400 uppercase tracking-wider">Email</label>
@@ -61,7 +54,6 @@ export default function Login() {
                   />
                 </div>
               </div>
-
               <div className="space-y-1.5">
                 <label className="text-xs text-gray-400 uppercase tracking-wider">Password</label>
                 <div className="flex items-center bg-white/8 border border-white/15 rounded-xl overflow-hidden focus-within:border-indigo-500/60 transition-colors">
@@ -87,7 +79,6 @@ export default function Login() {
                   </button>
                 </div>
               </div>
-
               <button type="submit" disabled={loading} className="relative group/btn w-full mt-1">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4f52c9] to-[#8644c5] rounded-xl opacity-70 blur group-hover/btn:opacity-100 transition duration-300" />
                 <div className="relative h-11 bg-[#030014] rounded-xl border border-white/10 flex items-center justify-center gap-2 overflow-hidden">

@@ -19,7 +19,6 @@ const ThankYouPage = () => {
         overflow-hidden
       "
     >
-      {/* Background Glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="
@@ -33,7 +32,6 @@ const ThankYouPage = () => {
             blur-[120px]
           "
         />
-
         <div
           className="
             absolute
@@ -47,9 +45,7 @@ const ThankYouPage = () => {
           "
         />
       </div>
-
       <div className="text-center relative z-10">
-        {/* Success Icon */}
         <div className="flex justify-center mb-6">
           <div
             className="
@@ -71,8 +67,6 @@ const ThankYouPage = () => {
             />
           </div>
         </div>
-
-        {/* Title */}
         <h1
           className="
             text-4xl
@@ -89,8 +83,6 @@ const ThankYouPage = () => {
         >
           Thank You!
         </h1>
-
-        {/* Description */}
         <p
           className="
             text-[#a9929b]
@@ -104,8 +96,6 @@ const ThankYouPage = () => {
           Your message has been received. I'll get back to you as soon as
           possible.
         </p>
-
-        {/* Back to Home */}
         <Link
           to="/"
           className="

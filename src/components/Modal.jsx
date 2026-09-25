@@ -6,7 +6,6 @@ const ProjectCardModal = ({ title, description, link }) => {
 
   return (
     <>
-      {/* Details Button */}
       <button
         className="
           inline-flex
@@ -28,7 +27,6 @@ const ProjectCardModal = ({ title, description, link }) => {
         onClick={() => setIsOpen(true)}
       >
         <span className="text-sm">Details</span>
-
         <ArrowRight
           className="
             w-4
@@ -39,7 +37,6 @@ const ProjectCardModal = ({ title, description, link }) => {
           "
         />
       </button>
-
       {isOpen && (
         <div
           className="
@@ -74,7 +71,6 @@ const ProjectCardModal = ({ title, description, link }) => {
             "
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Pink glow */}
             <div
               className="
                 absolute
@@ -88,8 +84,6 @@ const ProjectCardModal = ({ title, description, link }) => {
                 pointer-events-none
               "
             />
-
-            {/* Close Button */}
             <button
               className="
                 absolute
@@ -112,8 +106,6 @@ const ProjectCardModal = ({ title, description, link }) => {
             >
               <Eye className="h-5 w-5" />
             </button>
-
-            {/* Content */}
             <div className="relative z-10">
               <h2
                 className="
@@ -127,9 +119,7 @@ const ProjectCardModal = ({ title, description, link }) => {
               >
                 {title}
               </h2>
-
               <div className="mb-5 h-px w-16 bg-gradient-to-r from-[#F04470] to-[#D62965]" />
-
               <p
                 className="
                   mb-6
@@ -140,8 +130,6 @@ const ProjectCardModal = ({ title, description, link }) => {
               >
                 {description}
               </p>
-
-              {/* Actions */}
               <div className="flex justify-end space-x-3">
                 <a
                   href={link}
@@ -166,10 +154,8 @@ const ProjectCardModal = ({ title, description, link }) => {
                   "
                 >
                   Live Demo
-
                   <ExternalLink className="ml-2 inline-block h-5 w-5" />
                 </a>
-
                 <button
                   className="
                     rounded-xl

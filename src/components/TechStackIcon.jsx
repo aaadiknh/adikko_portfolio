@@ -20,7 +20,6 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
         overflow-hidden
       "
     >
-      {/* Subtle Hover Glow */}
       <div
         className="
           absolute inset-0
@@ -34,9 +33,7 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
           pointer-events-none
         "
       />
-
       <div className="relative z-10">
-        {/* Icon Glow */}
         <div
           className="
             absolute -inset-3
@@ -50,8 +47,6 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
             transition-all duration-500
           "
         />
-
-        {/* Icon Background */}
         <div
           className="
             absolute -inset-1
@@ -65,7 +60,6 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
             transition-all duration-300
           "
         />
-
         <div
           className="
             relative
@@ -93,8 +87,6 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
           />
         </div>
       </div>
-
-      {/* Language Name */}
       <span
         className="
           relative z-10
@@ -108,8 +100,6 @@ const TechStackIcon = ({ TechStackIcon, Language }) => {
       >
         {Language}
       </span>
-
-      {/* Bottom Accent */}
       <div
         className="
           absolute bottom-0 left-1/2

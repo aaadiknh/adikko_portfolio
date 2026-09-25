@@ -11,9 +11,6 @@ import {
   Star,
 } from "lucide-react";
 
-/* =========================================================
-   FLOATING ICON
-========================================================= */
 const FloatingIcon = ({
   Icon,
   className = "",
@@ -66,9 +63,6 @@ const FloatingIcon = ({
   );
 };
 
-/* =========================================================
-   DECORATIVE DOT
-========================================================= */
 const DecorativeDot = ({
   left,
   top,
@@ -103,9 +97,6 @@ const DecorativeDot = ({
   );
 };
 
-/* =========================================================
-   STAR
-========================================================= */
 const DecorativeStar = ({
   left,
   top,
@@ -145,9 +136,6 @@ const DecorativeStar = ({
   );
 };
 
-/* =========================================================
-   BACKGROUND
-========================================================= */
 const Background = () => {
   const dots = [
     ["12%", "23%", 0],
@@ -166,10 +154,7 @@ const Background = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* BASE */}
       <div className="absolute inset-0 bg-[#090509]" />
-
-      {/* MAIN MAGENTA GRADIENT */}
       <div
         className="
           absolute
@@ -177,8 +162,6 @@ const Background = () => {
           bg-[radial-gradient(circle_at_18%_15%,rgba(190,12,101,0.65),transparent_38%),radial-gradient(circle_at_82%_90%,rgba(110,8,65,0.45),transparent_40%),linear-gradient(115deg,#12070f_0%,#2b071b_42%,#090509_100%)]
         "
       />
-
-      {/* LARGE LEFT MAGENTA GLOW */}
       <motion.div
         className="
           absolute
@@ -202,8 +185,6 @@ const Background = () => {
           ease: "easeInOut",
         }}
       />
-
-      {/* CENTER GLOW */}
       <motion.div
         className="
           absolute
@@ -229,8 +210,6 @@ const Background = () => {
           ease: "easeInOut",
         }}
       />
-
-      {/* SUBTLE GRID */}
       <div
         className="
           absolute
@@ -240,8 +219,6 @@ const Background = () => {
           bg-[size:55px_55px]
         "
       />
-
-      {/* VIGNETTE */}
       <div
         className="
           absolute
@@ -249,8 +226,6 @@ const Background = () => {
           bg-[radial-gradient(circle,transparent_35%,rgba(0,0,0,0.55)_100%)]
         "
       />
-
-      {/* DOTS */}
       {dots.map(([left, top, delay], index) => (
         <DecorativeDot
           key={index}
@@ -260,29 +235,24 @@ const Background = () => {
           size={index % 3 === 0 ? 4 : 2}
         />
       ))}
-
-      {/* DECORATIVE STARS */}
       <DecorativeStar
         left="11%"
         top="27%"
         delay={0}
         size={18}
       />
-
       <DecorativeStar
         left="83%"
         top="24%"
         delay={1}
         size={14}
       />
-
       <DecorativeStar
         left="22%"
         top="69%"
         delay={1.8}
         size={12}
       />
-
       <DecorativeStar
         left="76%"
         top="68%"
@@ -293,9 +263,6 @@ const Background = () => {
   );
 };
 
-/* =========================================================
-   ABSTRACT DECORATION
-========================================================= */
 const AbstractShape = ({
   className = "",
   delay = 0,
@@ -341,26 +308,19 @@ const AbstractShape = ({
   );
 };
 
-/* =========================================================
-   LOADING
-========================================================= */
 const LoadingProgress = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const duration = 2600;
     const start = Date.now();
-
     const update = () => {
       const elapsed = Date.now() - start;
-
       const percentage = Math.min(
         (elapsed / duration) * 100,
         100
       );
-
       setProgress(percentage);
-
       if (percentage < 100) {
         requestAnimationFrame(update);
       } else {
@@ -369,15 +329,12 @@ const LoadingProgress = ({ onComplete }) => {
         }, 300);
       }
     };
-
     requestAnimationFrame(update);
-
     return () => {};
   }, [onComplete]);
 
   return (
     <div className="flex flex-col items-center">
-      {/* Progress bar */}
       <div
         className="
           w-40
@@ -404,8 +361,6 @@ const LoadingProgress = ({ onComplete }) => {
           }}
         />
       </div>
-
-      {/* Loading text */}
       <div
         className="
           mt-3
@@ -420,28 +375,21 @@ const LoadingProgress = ({ onComplete }) => {
         "
       >
         <span>Loading portfolio</span>
-
         <span>{Math.floor(progress)}%</span>
       </div>
     </div>
   );
 };
 
-/* =========================================================
-   WELCOME SCREEN
-========================================================= */
 const WelcomeScreen = ({
   onLoadingComplete,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [finished, setFinished] = useState(false);
-
   const handleComplete = () => {
     setFinished(true);
-
     setTimeout(() => {
       setIsLoading(false);
-
       setTimeout(() => {
         onLoadingComplete?.();
       }, 500);
@@ -478,8 +426,6 @@ const WelcomeScreen = ({
           }}
         >
           <Background />
-
-          {/* DECORATIVE ABSTRACT SHAPES */}
           <AbstractShape
             className="
               left-[7%]
@@ -489,7 +435,6 @@ const WelcomeScreen = ({
             "
             delay={0}
           />
-
           <AbstractShape
             className="
               right-[7%]
@@ -499,7 +444,6 @@ const WelcomeScreen = ({
             "
             delay={1}
           />
-
           <AbstractShape
             className="
               left-[9%]
@@ -509,7 +453,6 @@ const WelcomeScreen = ({
             "
             delay={2}
           />
-
           <AbstractShape
             className="
               right-[8%]
@@ -519,8 +462,6 @@ const WelcomeScreen = ({
             "
             delay={3}
           />
-
-          {/* FLOATING PROGRAMMING ICONS */}
           <FloatingIcon
             Icon={Code2}
             className="
@@ -532,7 +473,6 @@ const WelcomeScreen = ({
             delay={0}
             rotate={-8}
           />
-
           <FloatingIcon
             Icon={Braces}
             className="
@@ -544,7 +484,6 @@ const WelcomeScreen = ({
             delay={0.7}
             rotate={8}
           />
-
           <FloatingIcon
             Icon={Terminal}
             className="
@@ -556,7 +495,6 @@ const WelcomeScreen = ({
             delay={1.4}
             rotate={-5}
           />
-
           <FloatingIcon
             Icon={Database}
             className="
@@ -568,7 +506,6 @@ const WelcomeScreen = ({
             delay={2}
             rotate={6}
           />
-
           <FloatingIcon
             Icon={GitBranch}
             className="
@@ -580,7 +517,6 @@ const WelcomeScreen = ({
             delay={2.5}
             rotate={-10}
           />
-
           <FloatingIcon
             Icon={FileCode2}
             className="
@@ -592,8 +528,6 @@ const WelcomeScreen = ({
             delay={3}
             rotate={10}
           />
-
-          {/* MAIN CONTENT */}
           <div
             className="
               relative
@@ -612,7 +546,6 @@ const WelcomeScreen = ({
                 max-w-4xl
               "
             >
-              {/* TOP SMALL LABEL */}
               <motion.div
                 initial={{
                   opacity: 0,
@@ -648,7 +581,6 @@ const WelcomeScreen = ({
                 >
                   Welcome to my
                 </span>
-
                 <span
                   className="
                     px-2
@@ -664,10 +596,7 @@ const WelcomeScreen = ({
                   2026
                 </span>
               </motion.div>
-
-              {/* MAIN TYPOGRAPHY */}
               <div className="text-center">
-                {/* PORTFOLIO */}
                 <motion.h1
                   initial={{
                     opacity: 0,
@@ -710,8 +639,6 @@ const WelcomeScreen = ({
                     PORT
                   </span>
                 </motion.h1>
-
-                {/* FOLIO */}
                 <motion.h1
                   initial={{
                     opacity: 0,
@@ -742,8 +669,6 @@ const WelcomeScreen = ({
                   "
                 >
                   FOLIO
-
-                  {/* Small flower-like decoration */}
                   <motion.div
                     className="
                       absolute
@@ -768,8 +693,6 @@ const WelcomeScreen = ({
                     />
                   </motion.div>
                 </motion.h1>
-
-                {/* TAGLINE */}
                 <motion.p
                   initial={{
                     opacity: 0,
@@ -796,8 +719,6 @@ const WelcomeScreen = ({
               </div>
             </div>
           </div>
-
-          {/* LOADING */}
           <motion.div
             initial={{
               opacity: 0,
@@ -859,13 +780,10 @@ const WelcomeScreen = ({
                 >
                   ✦
                 </motion.span>
-
                 Ready
               </motion.div>
             )}
           </motion.div>
-
-          {/* BOTTOM GRADIENT LINE */}
           <motion.div
             initial={{
               scaleX: 0,
